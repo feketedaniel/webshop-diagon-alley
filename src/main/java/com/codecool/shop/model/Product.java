@@ -6,16 +6,18 @@ import java.util.Currency;
 public class Product extends BaseModel {
 
     private BigDecimal defaultPrice;
-    private Currency defaultCurrency;
+    private String defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
+    private String imgUrl;
 
 
-    public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String imgUrl) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+        this.setImgUrl(imgUrl);
     }
 
     public BigDecimal getDefaultPrice() {
@@ -26,11 +28,11 @@ public class Product extends BaseModel {
         this.defaultPrice = defaultPrice;
     }
 
-    public Currency getDefaultCurrency() {
+    public String getDefaultCurrency() {
         return defaultCurrency;
     }
 
-    public void setDefaultCurrency(Currency defaultCurrency) {
+    public void setDefaultCurrency(String defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
     }
 
@@ -40,7 +42,7 @@ public class Product extends BaseModel {
 
     public void setPrice(BigDecimal price, String currency) {
         this.defaultPrice = price;
-        this.defaultCurrency = Currency.getInstance(currency);
+        this.defaultCurrency = currency;
     }
 
     public ProductCategory getProductCategory() {
@@ -75,5 +77,13 @@ public class Product extends BaseModel {
                 this.defaultCurrency.toString(),
                 this.productCategory.getName(),
                 this.supplier.getName());
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
