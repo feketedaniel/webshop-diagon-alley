@@ -101,6 +101,7 @@ li a {
     align-items: center;
     border-bottom: 1px solid wheat;
     margin-bottom: 150px;
+    padding: 0 2em;
 }
 .logo-container{
     position: sticky;
@@ -133,22 +134,24 @@ ul {
 .nav-menu {
     position: relative;
     padding: 2em 1em;
+    display: inline;
 }
 
 .nav-submenu {
     border: 1px solid wheat;
     border-top: none;
     background-color: #492b11;
-    padding: 0.5em;
+    padding: 0.5em 1em;
     position: absolute;
+    left: 0;
     margin-top: 18px;
-    right: 0;
     visibility: hidden;
     z-index: -1;
     opacity: 0;
     transform-origin: top;
     transform: scaleY(0%);
     box-shadow: 3px 3px 5px #492b11, -1px 0px 5px #492b11;
+    width: max-content;
 }
 
 .nav-menu:hover .nav-submenu,

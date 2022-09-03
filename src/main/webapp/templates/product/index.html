@@ -35,15 +35,24 @@
 <body>
 <div class="shadow"></div>
 <div class="logo-container">
-    <a href="/shop"><img class="logo" src="/static/img/logo.png" ></a>
+    <a href="/shop"><img class="logo" src="/static/img/logo.png"></a>
 </div>
 
 <nav class="header-container">
-    <ul>
+    <ul class="nav-menubar">
         <li class="nav-menu"><a>Categories</a>
             <ul class="nav-submenu">
                 <li th:each="category : ${categories}">
-                    <a class="nav-submenu-item" th:text="${category.name}" th:href="'/shop?categoryId='+${category.id}"/>
+                    <a class="nav-submenu-item" th:text="${category.name}"
+                       th:href="'/shop?categoryId='+${category.id}"/>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-menu"><a>Suppliers</a>
+            <ul class="nav-submenu">
+                <li th:each="supplier : ${suppliers}">
+                    <a class="nav-submenu-item" th:text="${supplier.name}"
+                       th:href="'/shop?supplierId='+${supplier.id}"/>
                 </li>
             </ul>
         </li>
@@ -53,26 +62,27 @@
         <a>Register</a>
         <ul class="cart">
             <li>Cart
-            <ul class="cart-items"></ul></li>
+                <ul class="cart-items"></ul>
+            </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
     <div id="products" class="row">
-            <div class="card" th:each="prod : ${products}">
-                <div class="img-container">
-                    <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src=${prod.imgUrl}" alt=""/>
-                </div>
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-body">
-                    <div class="lead price-container" th:text="${prod.getPrice()}">100 USD</div>
-                    <div class="cart-button-container"><a class="btn btn-success">Add to cart</a></div>
-                </div>
+        <div class="card" th:each="prod : ${products}">
+            <div class="img-container">
+                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src=${prod.imgUrl}" alt=""/>
             </div>
+            <div class="card-header">
+                <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                <p class="card-text" th:text="${prod.description}">Product description... </p>
+            </div>
+            <div class="card-body">
+                <div class="lead price-container" th:text="${prod.getPrice()}">100 USD</div>
+                <div class="cart-button-container"><a class="btn btn-success">Add to cart</a></div>
+            </div>
+        </div>
     </div>
 
 </div>
