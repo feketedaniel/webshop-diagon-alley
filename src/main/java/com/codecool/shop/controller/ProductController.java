@@ -7,6 +7,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Enumeration;
 
@@ -27,31 +29,32 @@ public class ProductController extends HttpServlet {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStorage = SupplierDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore, productCategoryDataStore);
+        ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDataStorage);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("categories", productCategoryDataStore.getAll());
         context.setVariable("suppliers", supplierDataStorage.getAll());
 
+        setContextBySearchParameters(productService, context, req);
+        engine.process("product/index.html", context, resp.getWriter());
+    }
+
+    private void setContextBySearchParameters(ProductService service, WebContext context, HttpServletRequest req) {
         Enumeration<String> params = req.getParameterNames();
         if (params.hasMoreElements()) {
             String param = params.nextElement();
-            System.out.println("Param: " + param + ", Value: " + req.getParameter(param));
             switch (param) {
                 case "categoryId":
-                    context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.getParameter(param)))));
+                    context.setVariable("products", service.getProductsForCategory(Integer.parseInt(req.getParameter(param))));
                     break;
                 case "supplierId":
-                    context.setVariable("products", productDataStore.getBy(supplierDataStorage.find(Integer.parseInt(req.getParameter(param)))));
+                    context.setVariable("products", service.getProductsForSupplier(Integer.parseInt(req.getParameter(param))));
                     break;
             }
         } else {
-            context.setVariable("products", productDataStore.getAll());
+            context.setVariable("products", service.getAll());
         }
-
-
-        engine.process("product/index.html", context, resp.getWriter());
     }
 
 }

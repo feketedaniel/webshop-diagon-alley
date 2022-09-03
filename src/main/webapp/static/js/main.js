@@ -1,5 +1,6 @@
 console.log("main.js loaded")
 const urlParams = new URLSearchParams(window.location.search);
+const session = window.sessionStorage;
 
 function loadBackground() {
     console.log(urlParams)
@@ -10,4 +11,7 @@ function loadBackground() {
     }
 }
 
+function sessionTest() {
+    session.setItem("teszt", "win")
+}
 loadBackground();
