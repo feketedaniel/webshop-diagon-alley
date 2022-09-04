@@ -26,21 +26,20 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStorage = SupplierDaoMem.getInstance();
-        ProductService productService = new ProductService(productDataStore, productCategoryDataStore, supplierDataStorage);
+
+        ProductService productService = ProductService.init();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("categories", productCategoryDataStore.getAll());
-        context.setVariable("suppliers", supplierDataStorage.getAll());
 
-        setContextBySearchParameters(productService, context, req);
-        engine.process("product/index.html", context, resp.getWriter());
+        context.setVariable("categories", productService.getAllProductCategory());
+        context.setVariable("suppliers", productService.getAllSupplier());
+        setProductsBySearchParameters(productService, context, req);
+
+        engine.process("product/shop.html", context, resp.getWriter());
     }
 
-    private void setContextBySearchParameters(ProductService service, WebContext context, HttpServletRequest req) {
+    private void setProductsBySearchParameters(ProductService service, WebContext context, HttpServletRequest req) {
         Enumeration<String> params = req.getParameterNames();
         if (params.hasMoreElements()) {
             String param = params.nextElement();
