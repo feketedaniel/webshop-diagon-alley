@@ -1,7 +1,7 @@
-function rebuildButtons(sessionOrderItemsJson) {
+function changeAddToCartButtons(sessionOrderItemsJson) {
     for (const [productId, orderItem] of Object.entries(sessionOrderItemsJson)) {
         const buttonContainer = document.querySelector('.cart-button-container[data-prod-id="' + productId + '"]')
-        if(buttonContainer !==null)changeAddToCartButton(buttonContainer, orderItem.amount)
+        if (buttonContainer !== null) replaceAddToCartButton(buttonContainer, orderItem.amount)
     }
 }
 
@@ -14,21 +14,36 @@ function rebuildAddButton(buttonContainer) {
     buttonContainer.insertAdjacentElement("beforeend", addButton)
 }
 
-function changeAddToCartButton(buttonContainer, amountCount=1) {
+function replaceAddToCartButton(buttonContainer, amountCount = 1) {
     buttonContainer.innerHTML = ""
-    const amountCounter = document.createElement("span")
-    const addButton = document.createElement("a")
-    const subButton = document.createElement("a")
-    amountCounter.dataset.prodId = buttonContainer.dataset.prodId
-    amountCounter.classList.add("product-amount-counter")
-    addButton.classList.add("btn", "btn-success")
-    subButton.classList.add("btn", "btn-success")
-    addButton.setAttribute("onclick", "addProductToCart(" + buttonContainer.dataset.prodId + ")")
-    subButton.setAttribute("onclick", "subProductToCart(" + buttonContainer.dataset.prodId + ")")
-    amountCounter.innerText = amountCount
-    addButton.innerText = "+"
-    subButton.innerText = "-"
-    buttonContainer.insertAdjacentElement("beforeend", amountCounter)
+    const amountContainer = createAmountContainer(buttonContainer)
+    const addButton = createAddButton(buttonContainer)
+    const subButton = createSubButton(buttonContainer)
+    amountContainer.innerText = amountCount
+    buttonContainer.insertAdjacentElement("beforeend", amountContainer)
     buttonContainer.insertAdjacentElement("beforeend", addButton)
     buttonContainer.insertAdjacentElement("afterbegin", subButton)
+}
+
+function createAddButton(buttonContainer){
+    const addButton = document.createElement("a")
+    addButton.classList.add("btn", "btn-success")
+    addButton.setAttribute("onclick", "addProductToCart(" + buttonContainer.dataset.prodId + ")")
+    addButton.innerText = "+"
+    return addButton
+}
+
+function createSubButton(buttonContainer){
+    const subButton = document.createElement("a")
+    subButton.classList.add("btn", "btn-success")
+    subButton.setAttribute("onclick", "subProductToCart(" + buttonContainer.dataset.prodId + ")")
+    subButton.innerText = "-"
+    return subButton
+}
+
+function createAmountContainer(buttonContainer){
+    const AmountContainer = document.createElement("span")
+    AmountContainer.dataset.prodId = buttonContainer.dataset.prodId
+    AmountContainer.classList.add("product-amount-counter")
+    return AmountContainer
 }

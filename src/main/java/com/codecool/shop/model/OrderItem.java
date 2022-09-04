@@ -1,14 +1,18 @@
 package com.codecool.shop.model;
 
+import java.math.BigDecimal;
+
 public class OrderItem {
     protected int id;
 
     protected String name;
     protected int amount;
+    protected BigDecimal defaultPrice;
 
     public OrderItem(Product product) {
         this.id = product.id;
         this.name = product.name;
+        this.defaultPrice = product.getDefaultPrice();
         this.amount = 0;
     }
 
