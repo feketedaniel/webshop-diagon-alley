@@ -9,10 +9,10 @@
 
 <div class="shadow"></div>
 <div class="container">
-    <div id="products" class="row">
+    <div class="row" id="products">
         <div class="card" th:each="prod : ${products}">
             <div class="img-container">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src=${prod.imgUrl}" alt=""/>
+                <img alt="" class="" src="http://placehold.it/400x250/000/fff" th:attr="src=${prod.imgUrl}"/>
             </div>
             <div class="card-header">
                 <h4 class="card-title" th:text="${prod.name}">Product name</h4>
@@ -20,7 +20,9 @@
             </div>
             <div class="card-body">
                 <div class="lead price-container" th:text="${prod.getPrice()}">100 USD</div>
-                <div class="cart-button-container" th:attr="data-prod-id=${prod.id}"><a class="btn btn-success" th:onclick="|addProductToCart(${prod.id})|">Add to cart</a></div>
+                <div class="cart-button-container" th:attr="data-prod-id=${prod.id}"><a class="btn btn-success"
+                                                                                        th:onclick="|addProductToCart(${prod.id})|">Add
+                    to cart</a></div>
             </div>
         </div>
     </div>

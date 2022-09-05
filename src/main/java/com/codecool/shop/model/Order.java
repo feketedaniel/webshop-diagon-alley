@@ -40,18 +40,22 @@ public class Order {
 
     public void addProduct(Product product) {
         OrderItem orderItem = orderItems.getOrDefault(product.id, new OrderItem(product));
-        orderItem.setAmount(orderItem.getAmount() + 1);
+        orderItem.amount += 1;
         orderItems.put(product.id, orderItem);
     }
 
     public void subProduct(Product product) {
         OrderItem orderItem = orderItems.getOrDefault(product.id, new OrderItem(product));
-        orderItem.amount= orderItem.amount - 1;
+        orderItem.amount += -1;
         if (orderItem.amount == 0) {
             orderItems.remove(product.id);
         } else {
             orderItems.put(product.id, orderItem);
         }
+    }
+
+    public void removeOrderItem(int prodId) {
+        orderItems.remove(prodId);
     }
 
     @Override
@@ -64,4 +68,5 @@ public class Order {
         });
         return sb.toString();
     }
+
 }

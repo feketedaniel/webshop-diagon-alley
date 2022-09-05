@@ -25,7 +25,7 @@ function replaceAddToCartButton(buttonContainer, amountCount = 1) {
     buttonContainer.insertAdjacentElement("afterbegin", subButton)
 }
 
-function createAddButton(buttonContainer){
+function createAddButton(buttonContainer) {
     const addButton = document.createElement("a")
     addButton.classList.add("btn", "btn-success")
     addButton.setAttribute("onclick", "addProductToCart(" + buttonContainer.dataset.prodId + ")")
@@ -33,7 +33,7 @@ function createAddButton(buttonContainer){
     return addButton
 }
 
-function createSubButton(buttonContainer){
+function createSubButton(buttonContainer) {
     const subButton = document.createElement("a")
     subButton.classList.add("btn", "btn-success")
     subButton.setAttribute("onclick", "subProductToCart(" + buttonContainer.dataset.prodId + ")")
@@ -41,7 +41,7 @@ function createSubButton(buttonContainer){
     return subButton
 }
 
-function createAmountContainer(buttonContainer){
+function createAmountContainer(buttonContainer) {
     const AmountContainer = document.createElement("span")
     AmountContainer.dataset.prodId = buttonContainer.dataset.prodId
     AmountContainer.classList.add("product-amount-counter")

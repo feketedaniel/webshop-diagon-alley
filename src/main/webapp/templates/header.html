@@ -2,73 +2,78 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
     <meta charset="utf-8"/>
-    <meta name="author" content="Codecool"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta content="Codecool" name="author"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 
     <title>Diagon Alley</title>
-    <link rel="icon" type="image/x-icon" href="/static/img/favicon.png">
+    <link href="/static/img/favicon.png" rel="icon" type="image/x-icon">
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
     <!--Latest compiled and minified Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    <script crossorigin="anonymous"
             integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    <script crossorigin="anonymous"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-            crossorigin="anonymous"></script>
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
     <!-- Latest compiled and minified CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" rel="stylesheet">
     <!-- End of Bootstrap components -->
 
-    <script src="https://kit.fontawesome.com/b0236555a9.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
-    <script src="/static/js/button.js" defer></script>
-    <script src="/static/js/cart.js" defer></script>
-    <script src="/static/js/main.js" defer></script>
+    <script crossorigin="anonymous" src="https://kit.fontawesome.com/b0236555a9.js"></script>
+    <link href="/static/css/custom.css" rel="stylesheet" type="text/css"/>
+    <script defer src="/static/js/button.js"></script>
+    <script defer src="/static/js/cart.js"></script>
+    <script defer src="/static/js/main.js"></script>
 
 </head>
 <body>
 
-    <div class="logo-container" th:fragment="logo-container">
-        <a href="/shop"><img class="logo" src="static/img/logo.png"></a>
-    </div>
-    <nav class="header-container" th:fragment="header-container">
-        <ul class="nav-menubar">
-            <li class="nav-menu"><a href="/shop">Categories</a>
-                <ul class="nav-submenu">
-                    <li th:each="category : ${categories}">
-                        <a class="nav-submenu-item" th:text="${category.name}"
-                           th:href="'/shop?categoryId='+${category.id}"/>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-menu"><a href="/shop">Suppliers</a>
-                <ul class="nav-submenu">
-                    <li th:each="supplier : ${suppliers}">
-                        <a class="nav-submenu-item" th:text="${supplier.name}"
-                           th:href="'/shop?supplierId='+${supplier.id}"/>
-                    </li>
+<div class="logo-container" th:fragment="logo-container">
+    <a href="/shop"><img class="logo" src="static/img/logo.png"></a>
+</div>
+<nav class="header-container" th:fragment="header-container">
+    <ul class="nav-menubar">
+        <li class="nav-menu"><a href="/shop">Categories</a>
+            <ul class="nav-submenu">
+                <li th:each="category : ${categories}">
+                    <a class="nav-submenu-item" th:href="'/shop?categoryId='+${category.id}"
+                       th:text="${category.name}"/>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-menu"><a href="/shop">Suppliers</a>
+            <ul class="nav-submenu">
+                <li th:each="supplier : ${suppliers}">
+                    <a class="nav-submenu-item" th:href="'/shop?supplierId='+${supplier.id}"
+                       th:text="${supplier.name}"/>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <div class="nav-toolbox">
+        <div class="connect">
+            <a>Login</a>
+            <a>Register</a>
+        </div>
+        <ul class="cart">
+            <li><i class="fa-solid fa-cart-shopping fa-lg" value="0"></i>
+                <ul class="cart-items visible">
+                    <li class="check-out"><a class="btn-check-out">check out</a><span class="cart-total-price-wrap">Total: <span
+                            class="cart-total-price">0</span> GAL</span></li>
                 </ul>
             </li>
         </ul>
-        <div class="nav-toolbox">
-            <a>Login</a>
-            <a>Register</a>
-            <ul class="cart">
-                <li><i class="fa-solid fa-cart-shopping fa-lg" value="0"></i>
-                    <ul class="cart-items"></ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    </div>
+</nav>
 
 
 </body>

@@ -12,13 +12,11 @@ import com.codecool.shop.model.Supplier;
 
 import java.util.List;
 
-public class ProductService{
+public class ProductService {
+    private static ProductService instance = null;
     private ProductDao productDao;
     private ProductCategoryDao productCategoryDao;
-
     private SupplierDao supplierDao;
-
-    private static ProductService instance = null;
 
     private ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
         this.productDao = productDao;
@@ -26,25 +24,8 @@ public class ProductService{
         this.supplierDao = supplierDao;
     }
 
-    public ProductCategory getProductCategory(int categoryId){
-        return productCategoryDao.find(categoryId);
-    }
-
-    public List<Product> getProductsForCategory(int categoryId){
-        var category = productCategoryDao.find(categoryId);
-        return productDao.getBy(category);
-    }
-    public List<Product> getProductsForSupplier(int supplierId){
-        var supplier = supplierDao.find(supplierId);
-        return productDao.getBy(supplier);
-    }
-
-    public List<Product> getAll() {
-        return productDao.getAll();
-    }
-
-    public static ProductService init(){
-        if(instance==null) {
+    public static ProductService init() {
+        if (instance == null) {
             ProductDao productDataStore = ProductDaoMem.getInstance();
             ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
             SupplierDao supplierDataStorage = SupplierDaoMem.getInstance();
@@ -53,14 +34,33 @@ public class ProductService{
         return instance;
     }
 
+    public ProductCategory getProductCategory(int categoryId) {
+        return productCategoryDao.find(categoryId);
+    }
+
+    public List<Product> getProductsForCategory(int categoryId) {
+        var category = productCategoryDao.find(categoryId);
+        return productDao.getBy(category);
+    }
+
+    public List<Product> getProductsForSupplier(int supplierId) {
+        var supplier = supplierDao.find(supplierId);
+        return productDao.getBy(supplier);
+    }
+
+    public List<Product> getAll() {
+        return productDao.getAll();
+    }
+
     public List<ProductCategory> getAllProductCategory() {
         return productCategoryDao.getAll();
     }
+
     public List<Supplier> getAllSupplier() {
         return supplierDao.getAll();
     }
 
-    public Product getProductById(int productId){
+    public Product getProductById(int productId) {
         return productDao.find(productId);
     }
 }

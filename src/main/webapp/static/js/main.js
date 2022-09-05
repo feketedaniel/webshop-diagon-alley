@@ -2,11 +2,18 @@ loadBackground();
 pageSync();
 
 async function pageSync() {
-    let sessionOrderJson = await getSessionOrder()
-    if (Object.keys(sessionOrderJson).length !== 0) {
-        console.log("TODO: rebuild HTML elements based on orderItems")
-        changeAddToCartButtons(sessionOrderJson)
-        setCartItemCount(Object.keys(sessionOrderJson).length)
+    let response = await fetch("/api/getSessionOrder")
+    if (response.ok) {
+        let sessionOrderJson = await response.json()
+        if (sessionOrderJson !== null) {
+            refreshCartItems(sessionOrderJson)
+            changeAddToCartButtons(sessionOrderJson)
+            addCheckOutToCart()
+            setCartItemCount(Object.keys(sessionOrderJson).length)
+            setCartTotal(sessionOrderJson)
+        }
+    } else {
+        console.log(response)
     }
 }
 

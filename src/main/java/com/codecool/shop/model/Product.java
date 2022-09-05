@@ -1,7 +1,6 @@
 package com.codecool.shop.model;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 
 public class Product extends BaseModel {
 
