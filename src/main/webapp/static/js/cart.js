@@ -1,5 +1,6 @@
-function addCheckOutToCart() {
-
+function hideCartFromDom(){
+    const cart = document.querySelector(".cart")
+    cart.style.display = "none"
 }
 
 function setCartTotal(sessionOrderJson) {

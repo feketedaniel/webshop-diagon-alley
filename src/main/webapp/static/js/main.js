@@ -1,4 +1,4 @@
-loadBackground();
+setRouteContent();
 pageSync();
 
 async function pageSync() {
@@ -8,7 +8,6 @@ async function pageSync() {
         if (sessionOrderJson !== null) {
             refreshCartItems(sessionOrderJson)
             changeAddToCartButtons(sessionOrderJson)
-            addCheckOutToCart()
             setCartItemCount(Object.keys(sessionOrderJson).length)
             setCartTotal(sessionOrderJson)
         }
@@ -17,10 +16,13 @@ async function pageSync() {
     }
 }
 
-function loadBackground() {
+function setRouteContent() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has("categoryId")) {
         document.body.style.backgroundImage = "url('/static/img/productCategory_" + urlParams.get("categoryId") + ".jpg')"
+    } else if (window.location.pathname==="/payment"){
+        hideCartFromDom()
+        document.body.style.backgroundImage = "url('/static/img/checkout.png')"
     } else {
         document.body.style.backgroundImage = "url('/static/img/background_main.jpg')"
     }

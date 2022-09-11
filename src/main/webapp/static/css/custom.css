@@ -309,6 +309,7 @@ a:active,
 .cart-items {
     max-height: 80vh;
     overflow-y: scroll;
+    min-width: 350px;
     width: auto;
     border: 1px solid wheat;
     border-top: none;
@@ -406,4 +407,16 @@ a:active,
     transform-origin: top;
     transform: scaleY(0);
     transition: all 0.5s ;
+}
+
+.order-detail-wrap,
+.payment-detail-wrap{
+    position: relative;
+    margin: 30px auto 30px auto;
+    height: 460px;
+    width: 675px;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("/static/img/pergamen.png");
 }
