@@ -6,7 +6,10 @@
 <nav th:replace="header.html :: header-container"></nav>
 <div class="shadow"></div>
 <div class="container">
-    <div class="payment-detail-wrap"></div>
+    <div class="payment-detail-wrap">
+        <form class="payment-form" action="/payment">
+        </form>
+    </div>
 </div>
 <div th:replace="footer.html :: copy"></div>
 </body>

@@ -20,9 +20,9 @@ function setRouteContent() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has("categoryId")) {
         document.body.style.backgroundImage = "url('/static/img/productCategory_" + urlParams.get("categoryId") + ".jpg')"
-    } else if (window.location.pathname==="/payment"){
+    } else if (window.location.pathname==="/payment" || window.location.pathname==="/checkout"){
         hideCartFromDom()
-        document.body.style.backgroundImage = "url('/static/img/checkout.png')"
+        document.body.style.backgroundImage = "url('/static/img/gringotts.jpg')"
     } else {
         document.body.style.backgroundImage = "url('/static/img/background_main.jpg')"
     }

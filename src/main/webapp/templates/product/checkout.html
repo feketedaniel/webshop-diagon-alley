@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="header.html :: head"></head>
+<head>
+    <script defer src="/static/js/apiwars.js"></script>
+</head>
 <body>
 <div th:replace="header.html :: logo-container"></div>
 <nav th:replace="header.html :: header-container"></nav>
 <div class="shadow"></div>
 <div class="container">
-    <div class="order-detail-wrap"></div>
+    <div class="checkout-detail-wrap">
+        <form class="checkout-form" action="/checkout">
+            <span class="checkout-span-center">Personal information</span><br><br>
+            <label for="name">Name: </label>
+            <input id="name" type="text"><br>
+            <label for="e-mail">E-Mail: </label>
+            <input id="e-mail" type="text"><br>
+            <label for="phone-number">Phone number: </label>
+            <span></span><input id="phone-number" type="text"><br><br>
+            <span class="checkout-span-center">Billing information</span><br><br>
+            <select id="billing-country" class="checkout-select">
+                <option disabled selected value>Select a Country</option>
+            </select>
+            <select id="billing-city" class="checkout-select">
+                <option disabled selected value>Select a City</option>
+            </select><br><br>
+            <label for="zip-billing">Zip: </label>
+            <input id="zip-billing" type="text"><br>
+            <label for="address-billing">Address: </label>
+            <input id="address-billing" type="text"><br><br>
+            <span class="checkout-span-center">Shipping information</span><br><br>
+            <select id="shipping-country" class="checkout-select">
+                <option disabled selected value>Select a Country</option>
+            </select>
+            <select id="shipping-city" class="checkout-select">
+                <option disabled selected value>Select a City</option>
+            </select><br><br>
+            <label for="zip-shipping">Zip: </label>
+            <input id="zip-shipping" type="text"><br>
+            <label for="address-shipping">Address: </label>
+            <input id="address-shipping" type="text"><br>
+        </form>
+    </div>
 </div>
 <div th:replace="footer.html :: copy"></div>
 </body>
-</html>
+</html><!DOCTYPE html>

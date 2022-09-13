@@ -19,7 +19,7 @@
                 <p class="card-text" th:text="${prod.description}">Product description... </p>
             </div>
             <div class="card-body">
-                <div class="lead price-container" th:text="${prod.defaultPrice}">100 USD</div>
+                <div class="lead price-container" th:text="${prod.getPrice()}"></div>
                 <div class="cart-button-container" th:attr="data-prod-id=${prod.id}"><a class="btn btn-success"
                                                                                         th:onclick="|addProductToCart(${prod.id})|">Add
                     to cart</a></div>
