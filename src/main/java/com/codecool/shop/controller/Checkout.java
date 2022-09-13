@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/checkout"})
 public class Checkout extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -21,6 +22,16 @@ public class Checkout extends HttpServlet {
         ProductService productService = ProductService.init();
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
+
         engine.process("product/checkout.html", context, resp.getWriter());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect("product/payment.html");
+    }
+
+    private void initRoute(HttpServletRequest req, HttpServletResponse resp) {
+
     }
 }

@@ -439,12 +439,14 @@ a:active,
 #billing-country{
     display: inline-block;
     float: left;
+    width: 40%;
 }
 #shipping-city,
 #billing-city{
     display: inline-block;
     float: right;
     padding-right: 1em;
+    width: 40%;
 }
 
 .checkout-select{
