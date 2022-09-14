@@ -4,7 +4,8 @@ pageSync();
 async function pageSync() {
     let response = await fetch("/api/getSessionOrder")
     if (response.ok) {
-        let sessionOrderJson = await response.json()
+        let sessionJson = await response.json()
+        let sessionOrderJson = await sessionJson.orderItems
         if (sessionOrderJson !== null) {
             refreshCartItems(sessionOrderJson)
             changeAddToCartButtons(sessionOrderJson)

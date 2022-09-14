@@ -6,6 +6,7 @@ import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,17 +25,16 @@ public class Payment extends HttpServlet {
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
         if (req.getParameter("orderId") != null) {
-//            TODO: redirect to orderconfirmed
-            System.out.println("TODO: redirect to orderconfirmed");
-            resp.sendRedirect("/shop");
+            RequestDispatcher dispatcher = getServletContext()
+                    .getRequestDispatcher("/order-confirmed");
+            dispatcher.forward(req, resp);
         } else {
-//            Order order = (Order) session.getAttribute("order");
-//            //now should check for chekout validation in session not just order
-//            if (order == null) {
-//                resp.sendRedirect("/shop");}
-//            } else if (!order.isChecked()) {
-//                resp.sendRedirect("/checkout");
-//            }
+            Order order = (Order) session.getAttribute("order");
+            if (order == null) {
+                resp.sendRedirect("/shop");
+            } else if (!order.isChecked()) {
+                resp.sendRedirect("/checkout");
+            }
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             engine.process("product/payment.html", context, resp.getWriter());
         }

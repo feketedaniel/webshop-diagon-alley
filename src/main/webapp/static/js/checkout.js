@@ -91,6 +91,7 @@ function validateSubmit() {
 function emailSuggestion(email) {
     let arrowbox = document.querySelector("#e-mail-arrowbox")
     arrowbox.insertAdjacentText("afterbegin", "You mean: ")
+    arrowbox.insertAdjacentHTML("beforeend", "<span id=\"e-mail-suggestion\"></span>")
     arrowbox.insertAdjacentText("beforeend", "?")
     let textContainer = document.querySelector("#e-mail-suggestion")
     textContainer.innerText = email

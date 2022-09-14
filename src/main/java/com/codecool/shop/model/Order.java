@@ -9,6 +9,44 @@ public class Order {
     private int customerId;
     private Map<Integer, OrderItem> orderItems;
     private boolean isChecked = false;
+    private boolean isPayed =false;
+    private AddressInfo billingInformation;
+    private AddressInfo shippingInformation;
+    private CustomerInfo customerInformation;
+
+
+    public AddressInfo getBillingInformation() {
+        return billingInformation;
+    }
+
+    public void setBillingInformation(AddressInfo billingInformation) {
+        this.billingInformation = billingInformation;
+    }
+
+    public AddressInfo getShippingInformation() {
+        return shippingInformation;
+    }
+
+    public void setShippingInformation(AddressInfo shippingInformation) {
+        this.shippingInformation = shippingInformation;
+    }
+
+    public CustomerInfo getCustomerInformation() {
+        return customerInformation;
+    }
+
+    public void setCustomerInformation(CustomerInfo customerInformation) {
+        this.customerInformation = customerInformation;
+    }
+
+
+    public boolean isPayed() {
+        return isPayed;
+    }
+
+    public void setPayed(boolean payed) {
+        isPayed = payed;
+    }
 
 
     public boolean isChecked() {
@@ -73,6 +111,11 @@ public class Order {
         final StringBuilder sb = new StringBuilder();
         sb.append("\nOrder Id: ").append(this.id).append("\n");
         sb.append("Customer Id: ").append(this.customerId).append("\n");
+        sb.append("Customer Info: ").append(this.customerInformation).append("\n");
+        sb.append("Checked: ").append(this.isChecked).append("\n");
+        sb.append("Payed: ").append(this.isPayed).append("\n");
+        sb.append("BillingInfo: ").append(this.billingInformation).append("\n");
+        sb.append("ShippingInfo: ").append(this.shippingInformation).append("\n");
         sb.append("OrderItems: \n");
         orderItems.forEach((productId, orderItem) -> {
             sb.append("     Product name: ").append(orderItem.name).append(", Amount: ").append(orderItem.amount).append("\n");

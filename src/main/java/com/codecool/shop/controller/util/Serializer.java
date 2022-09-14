@@ -15,7 +15,7 @@ public class Serializer {
             .create();
 
     public static void serializeOrder(HttpServletResponse resp, Order serverOrder) throws IOException {
-        String jsonString = gson.toJson(serverOrder.getOrderItems());
+        String jsonString = gson.toJson(serverOrder);
         PrintWriter out = resp.getWriter();
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");

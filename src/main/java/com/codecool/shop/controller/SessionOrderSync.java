@@ -24,6 +24,8 @@ public class SessionOrderSync extends HttpServlet {
             session.setAttribute("order", serverOrder);
         }
         Serializer.serializeOrder(resp, serverOrder);
+        System.out.println("SessionOrderSync print:\n"+serverOrder);
     }
+
 }
 

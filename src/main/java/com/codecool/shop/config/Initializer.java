@@ -68,9 +68,5 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Ravenclaw Robe", new BigDecimal("49.9"), "GAL", "Hogwarts school uniform", robe, malkins, "https://cdn.shopify.com/s/files/1/0514/6332/3817/products/1296491_1296657_0_grande.png?v=1613579776"));
         productDataStore.add(new Product("Slytherin Robe", new BigDecimal("49.9"), "GAL", "Hogwarts school uniform", robe, malkins, "https://cdn.shopify.com/s/files/1/0514/6332/3817/products/1296484_1296653_0_grande.png?v=1613579670"));
         productDataStore.add(new Product("Aurora", new BigDecimal("49.9"), "GAL", "Snowy Owl", pets, eeylopsOwlEmporium, "https://www.seekpng.com/png/full/46-465733_snowy-owl-png.png"));
-
-        productDataStore.getAll().forEach(product -> {
-            System.out.println("name: " + product.getName() + ", id: " + product.getId());
-        });
     }
 }

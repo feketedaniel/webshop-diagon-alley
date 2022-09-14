@@ -529,11 +529,11 @@ a:active,
 }
 
 .payment-method-wrap {
-    margin: 2em 0;
     display: block;
 }
 
 .center-input {
+    margin: 1em 0;
     text-align: center;
 }
 
@@ -543,4 +543,31 @@ a:active,
 
 #card-number {
     width: 10em;
+}
+.paypal-qr-wrap{
+    width: max-content;
+    margin: 2em auto;
+    text-align: center;
+}
+.paypal-link-wrap{
+    margin: 0.5em auto;
+    text-align: center;
+}
+
+#paypal-qr {
+    margin: 1em;
+    display: block;
+}
+#paypal-link{
+    display: block;
+}
+
+.payment-form-card,
+.payment-form-paypal{
+    margin: 3em 0;
+}
+
+.payment-detail-header span{
+    display: inline-block;
+    margin: 1.5em 0;
 }

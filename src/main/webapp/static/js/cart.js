@@ -28,7 +28,8 @@ function setCartItemCount(itemCount) {
 async function addProductToCart(orderItemId) {
     const response = await fetch("/api/cart/add?productId=" + orderItemId)
     if (response.ok) {
-        const order = await response.json()
+        const session = await response.json()
+        const order = await session.orderItems
         setCartTotal(order)
         const orderItem = order[orderItemId]
         const buttonContainer = document.querySelector('.cart-button-container[data-prod-id="' + orderItemId + '"]')
@@ -54,7 +55,8 @@ async function addProductToCart(orderItemId) {
 async function subProductToCart(orderItemId) {
     let response = await fetch("/api/cart/sub?productId=" + orderItemId, {"method": "PUT"})
     if (response.ok) {
-        const order = await response.json()
+        const session = await response.json()
+        const order = await session.orderItems
         setCartTotal(order)
         const orderItem = order[orderItemId]
         if (orderItem == null) {
@@ -76,7 +78,8 @@ async function subProductToCart(orderItemId) {
 async function removeOrderItem(orderItemId) {
     const response = await fetch("/api/cart/remove?productId=" + orderItemId, {"method": "DELETE"})
     if (response.ok) {
-        const order = await response.json()
+        const session = await response.json()
+        const order = await session.orderItems
         setCartTotal(order)
         rebuildToDefault(orderItemId)
     } else {

@@ -20,22 +20,23 @@
                 <i class="fa-brands fa-cc-paypal fa-5x paypal"></i>
             </span>
         </div>
-        <form class="payment-form-card" method="post" action="/payment" onsubmit="return expiryValidation()">
+        <form class="payment-form-card hidden" method="post" action="/payment" autocomplete="off" onsubmit="return expiryValidation()">
             <label for="card-number">Card number: </label>
-            <input  id="card-number" type="number" min="1000000000000000" max="9999999999999999" required><br>
-            <label for="card-owner" >Card owner: </label>
-            <input id="card-owner" type="text" required><br>
-            <label for="card-expiry" >Expiry date: </label>
-            <input id="card-expiry" type="date" required><br>
-            <label for="card-ccv" >CCV: </label>
-            <input id="card-ccv" type="number" min="100" max="999" required><br>
+            <input id="card-number" name="card-number" type="number" min="1000000000000000" max="9999999999999999"
+                   required><br>
+            <label for="card-owner">Card owner: </label>
+            <input id="card-owner" name="card-owner" type="text" required><br>
+            <label for="card-expiry">Expiry date: </label>
+            <input id="card-expiry" name="card-expiry" type="date" required><br>
+            <label for="card-ccv">CCV: </label>
+            <input id="card-ccv" name="card-ccv" type="number" min="100" max="999" required><br>
             <div class="center-input">
-            <input type="submit" value="Pay">
+                <input type="submit" value="Pay">
             </div>
         </form>
-        <div class="payment-form-paypal">
-            <div class="paypal-qr-wrap"><img id="paypal-qr"></div>
-            <div class="paypal-link"></div>
+        <div class="payment-form-paypal hidden">
+            <div class="paypal-qr-wrap">Paypal QR code:<img id="paypal-qr"></div>
+            <div class="paypal-link-wrap">Or :<a id="paypal-link">Paypal link</a></div>
         </div>
     </div>
 </div>
