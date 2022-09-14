@@ -458,9 +458,6 @@ a:active,
     background-color: #a98755;
 }
 
-.phone-dial{
-    float: right;
-}
 #e-mail-validation-container{
     display: inline-block;
     position: relative;
@@ -487,4 +484,14 @@ a:active,
     position: absolute;
     top: -25%;
     left: 20%;
+}
+.fa-circle-check,
+.fa-circle-xmark {
+    margin-right: 1em;
+}
+.fa-circle-check{
+    color: darkgreen;
+}
+.fa-circle-xmark{
+    color: darkred;
 }
