@@ -10,36 +10,45 @@
 <div class="shadow"></div>
 <div class="container">
     <div class="checkout-detail-wrap">
-        <form class="checkout-form" action="/checkout" method="post">
+        <form class="checkout-form" action="/checkout" method="post" onsubmit="return validateSubmit()">
+
             <span class="checkout-span-center">Billing information</span><br><br>
             <select id="billing-country" class="checkout-select">
-                <option disabled selected>Select a Country</option>
+                <option disabled selected value="">Select a Country</option>
             </select>
             <select id="billing-city" class="checkout-select">
-                <option disabled selected value>Select a City</option>
+                <option disabled selected value="">Select a City</option>
             </select><br><br>
             <label for="zip-billing">Zip: </label>
-            <input id="zip-billing" type="text"><br>
+            <input id="zip-billing" type="text" data-index="1"><br>
             <label for="address-billing">Address: </label>
-            <input id="address-billing" type="text"><br><br>
+            <input id="address-billing" type="text" data-index="2"><br><br>
+
+
             <span class="checkout-span-center">Personal information</span><br><br>
             <label for="name">Name: </label>
-            <input id="name" type="text"><br>
+            <input id="name" type="text" data-index="3"><br>
             <label for="e-mail">E-Mail: </label>
-            <input id="e-mail" type="text"><br>
-            <label for="phone">Phone: <span class="phone-dial"></span></label>
-            <span></span><input id="phone" type="text"><br><br>
+            <div id="e-mail-validation-container"><input id="e-mail" type="text" data-index="4">
+                <div id="e-mail-arrowbox" class="e-mail-arrowbox hidden">You mean: <span id="e-mail-suggestion"></span>?
+                </div>
+            </div>
+            <br>
+            <label for="phone">Phone: </label>
+            <span class="phone-dial"><input id="phone" type="text" data-index="5"></span><br><br>
+
+
             <span class="checkout-span-center">Shipping information</span><br><br>
             <select id="shipping-country" class="checkout-select">
                 <option disabled selected value>Select a Country</option>
             </select>
             <select id="shipping-city" class="checkout-select">
-                <option disabled selected value>Select a City</option>
+                <option disabled selected value="">Select a City</option>
             </select><br><br>
             <label for="zip-shipping">Zip: </label>
-            <input id="zip-shipping" type="text"><br>
+            <input id="zip-shipping" type="text" data-index="6"><br>
             <label for="address-shipping">Address: </label>
-            <input id="address-shipping" type="text"><br>
+            <input id="address-shipping" type="text" data-index="7"><br>
             <input type="submit" class="input-submit" value="Go to payment">
         </form>
     </div>
