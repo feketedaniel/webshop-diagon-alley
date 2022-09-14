@@ -4,11 +4,12 @@ const shippingCountries = document.querySelector("#shipping-country")
 const shippingCities = document.querySelector("#shipping-city")
 const emailInput = document.querySelector("#e-mail")
 
-setupArrowbox()
+setUpArrowbox()
+setUpForm()
 setUpCheckoutPage()
     .catch(error => console.log('error', error))
 
-function setupArrowbox() {
+function setUpArrowbox() {
     let arrowbox = document.querySelector("#e-mail-arrowbox")
     arrowbox.addEventListener("mouseleave", () => {
         arrowbox.innerText = ""
@@ -20,20 +21,16 @@ function setupArrowbox() {
 
 }
 
-async function setUpCheckoutPage() {
+function setUpForm(){
     let form = document.querySelector(".checkout-form")
-    form.addEventListener("keydown", function (ev) {
-        if (ev.keyCode === 13) {
-            ev.preventDefault()
-            let current = $(ev.target);
-            let index = parseFloat(current.attr('data-index'));
-            $('[data-index="' + (index + 1).toString() + '"]').focus();
-        }
-    })
+    form.addEventListener("keydown", (ev)=>{formOnEnter(ev,form)})
     emailInput.addEventListener("change", () => {
         let email = emailInput.value.trim()
         if (email) emailValidation(email);
     })
+}
+
+async function setUpCheckoutPage() {
     let response = await fetch("https://countriesnow.space/api/v0.1/countries/info?returns=dialCode")
     if (response.ok) {
         let countriesAndDials = (await response.json()).data

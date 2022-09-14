@@ -5,9 +5,19 @@ import java.util.Map;
 
 public class Order {
     private static int nextId = 0;
-    protected int id;
-    protected int customerId;
-    protected Map<Integer, OrderItem> orderItems;
+    private int id;
+    private int customerId;
+    private Map<Integer, OrderItem> orderItems;
+    private boolean isChecked = false;
+
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public Order() {
         this.id = nextId++;
@@ -63,8 +73,9 @@ public class Order {
         final StringBuilder sb = new StringBuilder();
         sb.append("\nOrder Id: ").append(this.id).append("\n");
         sb.append("Customer Id: ").append(this.customerId).append("\n");
+        sb.append("OrderItems: \n");
         orderItems.forEach((productId, orderItem) -> {
-            sb.append("Product name: ").append(orderItem.name).append(", Amount: ").append(orderItem.amount).append("\n");
+            sb.append("     Product name: ").append(orderItem.name).append(", Amount: ").append(orderItem.amount).append("\n");
         });
         return sb.toString();
     }

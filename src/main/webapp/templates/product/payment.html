@@ -1,14 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:replace="header.html :: head"></head>
+<head>
+    <script defer src="/static/js/util.js"></script>
+    <script src="/static/js/payment.js" defer></script>
+</head>
 <body>
 <div th:replace="header.html :: logo-container"></div>
 <nav th:replace="header.html :: header-container"></nav>
 <div class="shadow"></div>
 <div class="container">
     <div class="payment-detail-wrap">
-        <form class="payment-form" action="/payment">
+        <div class="payment-detail-header">
+            <span class="payment-total"></span><br>
+            <span>Choose payment method:</span>
+            <span class="payment-method-wrap">
+                <i class="fa-brands fa-cc-mastercard fa-5x credit"></i>
+                <i class="fa-brands fa-cc-visa fa-5x credit"></i>
+                <i class="fa-brands fa-cc-paypal fa-5x paypal"></i>
+            </span>
+        </div>
+        <form class="payment-form-card" method="post" action="/payment" onsubmit="return expiryValidation()">
+            <label for="card-number">Card number: </label>
+            <input  id="card-number" type="number" min="1000000000000000" max="9999999999999999" required><br>
+            <label for="card-owner" >Card owner: </label>
+            <input id="card-owner" type="text" required><br>
+            <label for="card-expiry" >Expiry date: </label>
+            <input id="card-expiry" type="date" required><br>
+            <label for="card-ccv" >CCV: </label>
+            <input id="card-ccv" type="number" min="100" max="999" required><br>
+            <div class="center-input">
+            <input type="submit" value="Pay">
+            </div>
         </form>
+        <div class="payment-form-paypal">
+            <div class="paypal-qr-wrap"><img id="paypal-qr"></div>
+            <div class="paypal-link"></div>
+        </div>
     </div>
 </div>
 <div th:replace="footer.html :: copy"></div>

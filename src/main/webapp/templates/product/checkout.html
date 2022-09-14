@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:replace="header.html :: head"></head>
 <head>
+    <script defer src="/static/js/util.js"></script>
     <script defer src="/static/js/checkout.js"></script>
 </head>
+<head th:replace="header.html :: head"></head>
 <body>
 <div th:replace="header.html :: logo-container"></div>
 <nav th:replace="header.html :: header-container"></nav>
@@ -56,7 +57,9 @@
             <input id="zip-shipping" type="text" data-index="6" required><br>
             <label for="address-shipping">Address: </label>
             <input id="address-shipping" type="text" data-index="7" required><br>
+            <div class="center-input">
             <input type="submit" class="input-submit" value="Go to payment">
+            </div>
         </form>
     </div>
 </div>
