@@ -34,19 +34,27 @@ async function setSession() {
             }
             totalContainer.innerText = "Total price:"+total.toFixed(2)+" GAL"
         }
-        console.log(sessionOrder)
-        console.log(sessionOrder.id)
         let paypalImgContainer = document.querySelector("#paypal-qr")
         paypalImgContainer.setAttribute("src","https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=http%3A%2F%2Flocalhost%3A8080%2Fpayment%3ForderId%3D"+sessionOrder.id)
         let paypalLinkContainer = document.querySelector("#paypal-link")
         paypalLinkContainer.setAttribute("href","http://localhost:8080/payment?orderId="+sessionOrder.id)
+        setMinExpiry()
     }
+}
+
+function setMinExpiry(){
+    const currentDate=new Date()
+    const year = currentDate.toLocaleString("default",{year:"numeric"})
+    const month = currentDate.toLocaleString("default",{month: "2-digit"})
+    const formattedMin = year+"-"+month
+    document.querySelector("#card-expiry").setAttribute("min",formattedMin)
 }
 
 function expiryValidation(){
     const expiry = document.querySelector("#card-expiry").value
-    const expiryTime = new Date(expiry).getTime()+24*60*60*1000
-    const now = new Date().getTime()
+    const expiryTime = new Date(expiry)
+    expiryTime.setMonth(expiryTime.getMonth()+1)
+    const now = new Date()
     if(expiryTime<=now)alert("Card expired")
-    return expiryTime>=now
+    return expiryTime>now
 }

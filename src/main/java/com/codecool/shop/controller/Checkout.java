@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Enumeration;
 
 @WebServlet(urlPatterns = {"/checkout"})
 public class Checkout extends HttpServlet {
@@ -45,16 +44,16 @@ public class Checkout extends HttpServlet {
             resp.sendRedirect("/shop");
         } else if (order.getOrderItems().size() <= 0) {
             resp.sendRedirect("/shop");
+        } else {
+            updateBillingInfo(order, req);
+            updateShippingInfo(order, req);
+            updateCustomerInfo(order, req);
+            order.setChecked(true);
+
+            session.setAttribute("order", order);
+
+            resp.sendRedirect("/payment");
         }
-        //TODO:hard check inputs, update order
-        updateBillingInfo(order, req);
-        updateShippingInfo(order, req);
-        updateCustomerInfo(order, req);
-        order.setChecked(true);
-
-        session.setAttribute("order", order);
-
-        resp.sendRedirect("/payment");
     }
 
     private void updateBillingInfo(Order order, HttpServletRequest req) {

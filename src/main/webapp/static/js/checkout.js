@@ -21,9 +21,11 @@ function setUpArrowbox() {
 
 }
 
-function setUpForm(){
+function setUpForm() {
     let form = document.querySelector(".checkout-form")
-    form.addEventListener("keydown", (ev)=>{formOnEnter(ev,form)})
+    form.addEventListener("keydown", (ev) => {
+        formOnEnter(ev, form)
+    })
     emailInput.addEventListener("change", () => {
         let email = emailInput.value.trim()
         if (email) emailValidation(email);
@@ -79,11 +81,6 @@ async function emailValidation(email) {
     }
 }
 
-function invalidEmailAlert() {
-
-    console.log("todo: make some alert")
-}
-
 function validateSubmit() {
     return Boolean(emailInput.dataset.isValid)
 }
@@ -121,9 +118,11 @@ async function setupCountryEventListener() {
 
 async function setupCitiesOptions(container, e) {
     let country = e.target.value
-    let dialCode = document.querySelector("option[value='" + country + "']").dataset.dialCode
-    let dialCodeContainer = document.querySelector('#phone')
-    dialCodeContainer.value = "+" + dialCode
+    if (container === billingCities) {
+        let dialCode = document.querySelector("option[value='" + country + "']").dataset.dialCode
+        let dialCodeContainer = document.querySelector('#phone')
+        dialCodeContainer.value = "+" + dialCode
+    }
     let response = await fetch("https://countriesnow.space/api/v0.1/countries/cities", {
         method: 'POST',
         headers: {

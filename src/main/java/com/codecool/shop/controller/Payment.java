@@ -26,17 +26,37 @@ public class Payment extends HttpServlet {
         context.setVariable("suppliers", productService.getAllSupplier());
         if (req.getParameter("orderId") != null) {
             RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher("/order-confirmed");
+                    .getRequestDispatcher("/order_confirmation");
             dispatcher.forward(req, resp);
         } else {
             Order order = (Order) session.getAttribute("order");
-            if (order == null) {
-                resp.sendRedirect("/shop");
-            } else if (!order.isChecked()) {
-                resp.sendRedirect("/checkout");
-            }
+//            gatewayCheck(order,resp);
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             engine.process("product/payment.html", context, resp.getWriter());
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        WebContext context = new WebContext(req, resp, req.getServletContext());
+        ProductService productService = ProductService.init();
+        context.setVariable("categories", productService.getAllProductCategory());
+        context.setVariable("suppliers", productService.getAllSupplier());
+        Order order = (Order) session.getAttribute("order");
+        gatewayCheck(order,resp);
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        engine.process("product/payment.html", context, resp.getWriter());
+
+    }
+
+    private void gatewayCheck(Order order, HttpServletResponse resp) throws IOException {
+        if (order == null) {
+            resp.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+            resp.sendRedirect("/shop");
+        } else if (!order.isChecked()) {
+            resp.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+            resp.sendRedirect("/checkout");
         }
     }
 }

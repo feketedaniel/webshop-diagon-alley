@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/order-confirmed"})
-public class OrderConfirmed extends HttpServlet {
+@WebServlet(urlPatterns = {"/order_confirmation"})
+public class OrderConfirmation extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
