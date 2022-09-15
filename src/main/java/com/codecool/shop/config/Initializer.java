@@ -6,9 +6,9 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
-import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.base.Product;
+import com.codecool.shop.model.base.ProductCategory;
+import com.codecool.shop.model.base.Supplier;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

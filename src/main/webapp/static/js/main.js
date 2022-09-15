@@ -9,7 +9,7 @@ async function pageSync() {
         if (sessionOrderItemList !== null) {
             refreshCartItems(sessionOrderItemList)
             changeAddToCartButtons(sessionOrderItemList)
-            setCartItemCount(Object.keys(sessionOrderItemList).length)
+            setCartItemCount(sessionOrderItemList.length)
             setCartTotal(sessionOrderItemList)
         }
     } else {
@@ -21,7 +21,7 @@ function setRouteContent() {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has("categoryId")) {
         document.body.style.backgroundImage = "url('/static/img/productCategory_" + urlParams.get("categoryId") + ".jpg')"
-    } else if (window.location.pathname==="/payment" || window.location.pathname==="/checkout"){
+    } else if (window.location.pathname === "/payment" || window.location.pathname === "/checkout") {
         hideCartFromDom()
         document.body.style.backgroundImage = "url('/static/img/gringotts.jpg')"
     } else {

@@ -1,8 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.util.Serializer;
-import com.codecool.shop.model.Order;
-import com.codecool.shop.model.Product;
+import com.codecool.shop.model.base.Order;
+import com.codecool.shop.model.base.Product;
 import com.codecool.shop.service.ProductService;
 
 import javax.servlet.ServletException;
@@ -26,7 +26,7 @@ public class OrderController extends HttpServlet {
         }
         int prodId = Integer.parseInt(req.getParameter("productId"));
         Product product = productService.getProductById(prodId);
-        order.addProduct(product);
+        order.addProduct(product, order);
         session.setAttribute("order", order);
         Serializer.serializeOrder(resp, order);
     }
@@ -40,7 +40,7 @@ public class OrderController extends HttpServlet {
         } else {
             int prodId = Integer.parseInt(req.getParameter("productId"));
             Product product = productService.getProductById(prodId);
-            order.subProduct(product);
+            order.subProduct(product, order);
             session.setAttribute("order", order);
             Serializer.serializeOrder(resp, order);
         }
@@ -54,7 +54,7 @@ public class OrderController extends HttpServlet {
             resp.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
         } else {
             int prodId = Integer.parseInt(req.getParameter("productId"));
-            order.removeOrderItem(prodId);
+            order.removeOrderItem(prodId, order);
             session.setAttribute("order", order);
             Serializer.serializeOrder(resp, order);
         }

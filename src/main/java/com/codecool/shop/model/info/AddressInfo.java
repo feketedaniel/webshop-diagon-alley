@@ -1,4 +1,4 @@
-package com.codecool.shop.model;
+package com.codecool.shop.model.info;
 
 public class AddressInfo {
     private String country;

@@ -1,20 +1,24 @@
-package com.codecool.shop.model;
+package com.codecool.shop.model.base;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.codecool.shop.model.info.AddressInfo;
+import com.codecool.shop.model.info.CustomerInfo;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Order {
-    private int id;
-    private int customerId;
-    private Map<Integer, OrderItem> orderItems;
-    private boolean isChecked = false;
-    private boolean isPayed =false;
-    private AddressInfo billingInformation;
-    private AddressInfo shippingInformation;
-    private CustomerInfo customerInformation;
+    protected int id;
+    protected int customerId;
+    protected Set<OrderItem> orderItems;
+    protected boolean isChecked = false;
+    protected boolean isPayed = false;
+    protected AddressInfo billingInformation;
+    protected AddressInfo shippingInformation;
+    protected CustomerInfo customerInformation;
 
     public Order() {
-        this.orderItems = new HashMap<>();
+        this.orderItems = new HashSet<>() {
+        };
     }
 
 
@@ -76,32 +80,42 @@ public class Order {
         this.customerId = customerId;
     }
 
-    public Map<Integer, OrderItem> getOrderItems() {
+    public Set<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(Map<Integer, OrderItem> orderItems) {
+    public void setOrderItems(Set<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
-    public void addProduct(Product product) {
-        OrderItem orderItem = orderItems.getOrDefault(product.id, new OrderItem(product));
+    public void addProduct(Product product, Order order) {
+        OrderItem orderItem = order.orderItems
+                .stream()
+                .filter(oi -> oi.orderId == order.id && oi.productId == product.id)
+                .findFirst()
+                .orElse(new OrderItem(product, order));
         orderItem.amount += 1;
-        orderItems.put(product.id, orderItem);
+        orderItems.add(orderItem);
     }
 
-    public void subProduct(Product product) {
-        OrderItem orderItem = orderItems.getOrDefault(product.id, new OrderItem(product));
-        orderItem.amount += -1;
-        if (orderItem.amount == 0) {
-            orderItems.remove(product.id);
-        } else {
-            orderItems.put(product.id, orderItem);
-        }
+    public void subProduct(Product product, Order order) {
+        order.orderItems
+                .stream()
+                .filter(oi -> oi.orderId == order.id && oi.productId == product.id)
+                .findFirst()
+                .ifPresent(orderItem -> {
+                    orderItem.amount += -1;
+                    if (orderItem.amount <= 0) {
+                        orderItems.remove(orderItem);
+                    }
+                });
     }
 
-    public void removeOrderItem(int prodId) {
-        orderItems.remove(prodId);
+    public void removeOrderItem(int prodId, Order order) {
+        orderItems
+                .stream()
+                .filter(oi -> oi.orderId == order.id && oi.productId == prodId)
+                .findFirst().ifPresent(orderItem -> orderItems.remove(orderItem));
     }
 
     @Override
@@ -115,7 +129,7 @@ public class Order {
         sb.append("BillingInfo: ").append(this.billingInformation).append("\n");
         sb.append("ShippingInfo: ").append(this.shippingInformation).append("\n");
         sb.append("OrderItems: \n");
-        orderItems.forEach((productId, orderItem) -> {
+        orderItems.forEach((orderItem) -> {
             sb.append("     Product name: ").append(orderItem.name).append(", Amount: ").append(orderItem.amount).append("\n");
         });
         return sb.toString();

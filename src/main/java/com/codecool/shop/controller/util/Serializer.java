@@ -1,11 +1,10 @@
 package com.codecool.shop.controller.util;
 
-import com.codecool.shop.model.Order;
+import com.codecool.shop.model.base.Order;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 

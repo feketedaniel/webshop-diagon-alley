@@ -1,6 +1,6 @@
 function changeAddToCartButtons(sessionOrderItemsJson) {
-    for (const [productId, orderItem] of Object.entries(sessionOrderItemsJson)) {
-        const buttonContainer = document.querySelector('.cart-button-container[data-prod-id="' + productId + '"]')
+    for (const orderItem of sessionOrderItemsJson) {
+        const buttonContainer = document.querySelector('.cart-button-container[data-prod-id="' + orderItem.productId + '"]')
         if (buttonContainer !== null) replaceAddToCartButton(buttonContainer, orderItem.amount)
     }
 }

@@ -1,4 +1,4 @@
-package com.codecool.shop.model;
+package com.codecool.shop.model.info;
 
 public class CustomerInfo {
     private String name;

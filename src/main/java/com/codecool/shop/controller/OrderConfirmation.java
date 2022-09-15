@@ -23,6 +23,6 @@ public class OrderConfirmation extends HttpServlet {
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
         engine.process("product/order-confirmation.html", context, resp.getWriter());
-
+        System.out.println("confirm page");
     }
 }

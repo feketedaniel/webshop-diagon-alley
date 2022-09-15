@@ -1,7 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.util.Serializer;
-import com.codecool.shop.model.Order;
+import com.codecool.shop.model.base.Order;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +24,6 @@ public class SessionOrderSync extends HttpServlet {
             session.setAttribute("order", serverOrder);
         }
         Serializer.serializeOrder(resp, serverOrder);
-        System.out.println("SessionOrderSync print:\n"+serverOrder);
     }
 
 }

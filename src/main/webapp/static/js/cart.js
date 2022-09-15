@@ -1,75 +1,45 @@
-function hideCartFromDom(){
+function hideCartFromDom() {
     const cart = document.querySelector(".cart")
     cart.style.display = "none"
 }
 
-function setCartTotal(sessionOrderJson) {
+function setCartTotal(orderItems) {
     const totalContainer = document.querySelector(".cart-total-price")
-    if (sessionOrderJson !== null) {
+    if (orderItems !== null) {
         let total = 0
-        for (const orderItem of Object.values(sessionOrderJson)) {
+        for (const orderItem of Object.values(orderItems)) {
             total += orderItem.defaultPrice * orderItem.amount
         }
         totalContainer.innerText = +total.toFixed(2)
     }
 }
 
-async function addOrderItemToLine(orderItem) {
-    const cartItemsContainer = document.querySelector(".cart-items")
-    const orderItemContainer = createOrderItemContainer(orderItem)
-    cartItemsContainer.insertAdjacentElement("beforeend", orderItemContainer)
-}
+// async function addOrderItemToLine(orderItem) {
+//     const cartItemsContainer = document.querySelector(".cart-items")
+//     const orderItemContainer = createOrderItemContainer(orderItem)
+//     cartItemsContainer.insertAdjacentElement("beforeend", orderItemContainer)
+// }
 
 function setCartItemCount(itemCount) {
     let cart = document.querySelector(".fa-solid.fa-cart-shopping")
     cart.setAttribute("value", itemCount)
 }
 
-async function addProductToCart(orderItemId) {
-    const response = await fetch("/api/cart/add?productId=" + orderItemId)
+async function addProductToCart(productId) {
+    const response = await fetch("/api/cart/add?productId=" + productId)
     if (response.ok) {
-        const session = await response.json()
-        const order = await session.orderItems
-        setCartTotal(order)
-        const orderItem = order[orderItemId]
-        const buttonContainer = document.querySelector('.cart-button-container[data-prod-id="' + orderItemId + '"]')
-        const cardAmountContainer = document.querySelector('.product-amount-counter[data-prod-id="' + orderItemId + '"]')
-        if (cardAmountContainer == null) {
-            replaceAddToCartButton(buttonContainer)
-            let oldItemCount = document.querySelector(".fa-solid.fa-cart-shopping").getAttribute("value")
-            setCartItemCount(+oldItemCount + 1)
-            await addOrderItemToLine(orderItem)
-        } else {
-            cardAmountContainer.innerText = orderItem.amount
-            const lineAmountContainer = document.querySelector('.line-amount-counter[data-prod-id="' + orderItemId + '"]')
-            lineAmountContainer.innerText = orderItem.amount
-            const subTotalContainer = document.querySelector('.order-item-subtotal[data-prod-id="' + orderItemId + '"]')
-            subTotalContainer.innerText = +(orderItem.defaultPrice * orderItem.amount).toFixed(2) + " GAL"
-
-        }
+        await pageSync()
     } else {
         console.log(response)
     }
 }
 
-async function subProductToCart(orderItemId) {
-    let response = await fetch("/api/cart/sub?productId=" + orderItemId, {"method": "PUT"})
+async function subProductToCart(productId) {
+    let response = await fetch("/api/cart/sub?productId=" + productId, {"method": "PUT"})
     if (response.ok) {
-        const session = await response.json()
-        const order = await session.orderItems
-        setCartTotal(order)
-        const orderItem = order[orderItemId]
-        if (orderItem == null) {
-            rebuildToDefault(orderItemId)
-        } else {
-            const cardAmountContainer = document.querySelector('.product-amount-counter[data-prod-id="' + orderItemId + '"]')
-            const lineAmountContainer = document.querySelector('.line-amount-counter[data-prod-id="' + orderItemId + '"]')
-            const subTotalContainer = document.querySelector('.order-item-subtotal[data-prod-id="' + orderItemId + '"]')
-
-            cardAmountContainer.innerText = orderItem.amount
-            lineAmountContainer.innerText = orderItem.amount
-            subTotalContainer.innerText = +(orderItem.defaultPrice * orderItem.amount).toFixed(2) + " GAL"
-        }
+        const cardAmountContainer = document.querySelector('.product-amount-counter[data-prod-id="' + productId + '"]')
+        if (parseInt(cardAmountContainer.innerText) === 1) rebuildToDefault(productId)
+        await pageSync()
     } else {
         console.log(response)
     }
@@ -87,20 +57,27 @@ async function removeOrderItem(orderItemId) {
     }
 }
 
-function refreshCartItems(sessionOrderJson) {
-    for (const orderItem of Object.values(sessionOrderJson)) {
+function refreshCartItems(orderItemList) {
+    for (const orderItem of orderItemList) {
         const cartItemsContainer = document.querySelector(".cart-items")
-        const orderItemContainer = createOrderItemContainer(orderItem)
-        cartItemsContainer.insertAdjacentElement("beforeend", orderItemContainer)
+        const orderItemContainer = document.querySelector('.order-item-container[data-prod-id="' + orderItem.productId + '"]')
+        if (orderItemContainer == null) {
+            cartItemsContainer.insertAdjacentElement("beforeend", createOrderItemContainer(orderItem))
+        } else {
+            const lineAmountContainer = document.querySelector('.line-amount-counter[data-prod-id="' + orderItem.productId + '"]')
+            lineAmountContainer.innerText = orderItem.amount
+            const subTotalContainer = document.querySelector('.order-item-subtotal[data-prod-id="' + orderItem.productId + '"]')
+            subTotalContainer.innerText = +(orderItem.defaultPrice * orderItem.amount).toFixed(2) + " GAL"
+        }
     }
 }
 
-function rebuildToDefault(orderItemId){
-    const buttonContainer = document.querySelector('.cart-button-container[data-prod-id="' + orderItemId + '"]')
+function rebuildToDefault(productId) {
+    const buttonContainer = document.querySelector('.cart-button-container[data-prod-id="' + productId + '"]')
     rebuildAddButton(buttonContainer)
     const oldItemCount = document.querySelector(".fa-solid.fa-cart-shopping").getAttribute("value")
     setCartItemCount(+oldItemCount - 1)
-    const orderItemContainer = document.querySelector('.order-item-container[data-prod-id="' + orderItemId + '"]')
+    const orderItemContainer = document.querySelector('.order-item-container[data-prod-id="' + productId + '"]')
     setTimeout(() => {
         orderItemContainer.remove()
     }, 500)
@@ -110,7 +87,7 @@ function rebuildToDefault(orderItemId){
 function createOrderItemContainer(orderItem) {
     const orderItemContainer = document.createElement("li")
     orderItemContainer.classList.add("order-item-container")
-    orderItemContainer.dataset.prodId = orderItem.id
+    orderItemContainer.dataset.prodId = orderItem.productId
 
     const nameContainer = document.createElement("div")
     nameContainer.classList.add("order-item-name")
@@ -118,7 +95,7 @@ function createOrderItemContainer(orderItem) {
 
     const buttonContainer = document.createElement("div")
     buttonContainer.classList.add("order-item-button-container")
-    buttonContainer.dataset.prodId = orderItem.id
+    buttonContainer.dataset.prodId = orderItem.productId
 
     const addButton = createAddButton(buttonContainer)
     addButton.innerHTML = "<i class=\"fa-solid fa-circle-plus\"></i>"
@@ -127,7 +104,7 @@ function createOrderItemContainer(orderItem) {
     subButton.innerHTML = "<i class=\"fa-solid fa-circle-minus\"></i>"
 
     const amountCounter = document.createElement("span")
-    amountCounter.dataset.prodId = orderItem.id
+    amountCounter.dataset.prodId = orderItem.productId
     amountCounter.classList.add("line-amount-counter")
     amountCounter.innerText = orderItem.amount
     buttonContainer.insertAdjacentElement("beforeend", amountCounter)
@@ -140,12 +117,12 @@ function createOrderItemContainer(orderItem) {
 
     const subTotalContainer = document.createElement("div")
     subTotalContainer.classList.add("order-item-subtotal")
-    subTotalContainer.dataset.prodId = orderItem.id
+    subTotalContainer.dataset.prodId = orderItem.productId
     subTotalContainer.innerText = +(orderItem.amount * orderItem.defaultPrice).toFixed(2) + " GAL"
 
     const deleteButton = document.createElement("a")
     deleteButton.classList.add("order-item-delete")
-    deleteButton.setAttribute("onclick", "removeOrderItem(" + orderItem.id + ")")
+    deleteButton.setAttribute("onclick", "removeOrderItem(" + orderItem.productId + ")")
     deleteButton.innerHTML = "<i class='fa-solid fa-circle-xmark'></i>"
     const firsRow = document.createElement("div")
     firsRow.classList.add("order-item-container-row")

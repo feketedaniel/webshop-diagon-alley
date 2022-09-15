@@ -571,3 +571,7 @@ a:active,
     display: inline-block;
     margin: 0.5em 0;
 }
+#e-mail-suggestion{
+    text-decoration: underline 1px solid;
+    color: blue;
+}

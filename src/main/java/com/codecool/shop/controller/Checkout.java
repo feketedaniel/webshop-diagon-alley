@@ -1,9 +1,9 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.model.AddressInfo;
-import com.codecool.shop.model.CustomerInfo;
-import com.codecool.shop.model.Order;
+import com.codecool.shop.model.info.AddressInfo;
+import com.codecool.shop.model.info.CustomerInfo;
+import com.codecool.shop.model.base.Order;
 import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
