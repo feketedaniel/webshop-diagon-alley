@@ -5,12 +5,12 @@ async function pageSync() {
     let response = await fetch("/api/getSessionOrder")
     if (response.ok) {
         let sessionJson = await response.json()
-        let sessionOrderJson = await sessionJson.orderItems
-        if (sessionOrderJson !== null) {
-            refreshCartItems(sessionOrderJson)
-            changeAddToCartButtons(sessionOrderJson)
-            setCartItemCount(Object.keys(sessionOrderJson).length)
-            setCartTotal(sessionOrderJson)
+        let sessionOrderItemList = await sessionJson.orderItems
+        if (sessionOrderItemList !== null) {
+            refreshCartItems(sessionOrderItemList)
+            changeAddToCartButtons(sessionOrderItemList)
+            setCartItemCount(Object.keys(sessionOrderItemList).length)
+            setCartTotal(sessionOrderItemList)
         }
     } else {
         console.log(response)

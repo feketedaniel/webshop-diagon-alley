@@ -17,6 +17,8 @@ import java.io.IOException;
 public class Index extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = ProductService.init();
+        productService.getAll().forEach(System.out::println);
+        productService.getAllOrder().forEach(System.out::println);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());

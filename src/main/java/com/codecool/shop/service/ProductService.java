@@ -1,11 +1,14 @@
 package com.codecool.shop.service;
 
+import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -17,11 +20,13 @@ public class ProductService {
     private ProductDao productDao;
     private ProductCategoryDao productCategoryDao;
     private SupplierDao supplierDao;
+    private OrderDao orderDao;
 
-    private ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
+    private ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao, OrderDao orderDao) {
         this.productDao = productDao;
         this.productCategoryDao = productCategoryDao;
         this.supplierDao = supplierDao;
+        this.orderDao = orderDao;
     }
 
     public static ProductService init() {
@@ -29,7 +34,8 @@ public class ProductService {
             ProductDao productDataStore = ProductDaoMem.getInstance();
             ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
             SupplierDao supplierDataStorage = SupplierDaoMem.getInstance();
-            instance = new ProductService(productDataStore, productCategoryDataStore, supplierDataStorage);
+            OrderDao orderDao = OrderDaoMem.getInstance();
+            instance = new ProductService(productDataStore, productCategoryDataStore, supplierDataStorage, orderDao);
         }
         return instance;
     }
@@ -62,5 +68,13 @@ public class ProductService {
 
     public Product getProductById(int productId) {
         return productDao.find(productId);
+    }
+
+    public void addOrder(Order order) {
+        orderDao.add(order);
+    }
+
+    public List<Order> getAllOrder() {
+        return orderDao.getAll();
     }
 }

@@ -52,6 +52,9 @@ public class Checkout extends HttpServlet {
 
             session.setAttribute("order", order);
 
+            ProductService productService = ProductService.init();
+            productService.addOrder(order);
+
             resp.sendRedirect("/payment");
         }
     }

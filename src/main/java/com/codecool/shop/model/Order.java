@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Order {
-    private static int nextId = 0;
     private int id;
     private int customerId;
     private Map<Integer, OrderItem> orderItems;
@@ -13,6 +12,10 @@ public class Order {
     private AddressInfo billingInformation;
     private AddressInfo shippingInformation;
     private CustomerInfo customerInformation;
+
+    public Order() {
+        this.orderItems = new HashMap<>();
+    }
 
 
     public AddressInfo getBillingInformation() {
@@ -55,11 +58,6 @@ public class Order {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
-    }
-
-    public Order() {
-        this.id = nextId++;
-        this.orderItems = new HashMap<>();
     }
 
     public int getId() {

@@ -22,7 +22,7 @@ public class OrderConfirmation extends HttpServlet {
         ProductService productService = ProductService.init();
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
-        engine.process("product/order-confirmed.html", context, resp.getWriter());
+        engine.process("product/order-confirmation.html", context, resp.getWriter());
 
     }
 }
