@@ -1,7 +1,7 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.mem;
 
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.model.base.Supplier;
+import com.codecool.shop.model.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;

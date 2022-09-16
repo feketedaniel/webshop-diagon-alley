@@ -1,6 +1,6 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.model.base.Supplier;
+import com.codecool.shop.model.Supplier;
 
 import java.util.List;
 

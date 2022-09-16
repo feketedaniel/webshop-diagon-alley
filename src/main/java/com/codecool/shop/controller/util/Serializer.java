@@ -1,6 +1,6 @@
 package com.codecool.shop.controller.util;
 
-import com.codecool.shop.model.base.Order;
+import com.codecool.shop.model.Order;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,10 +15,12 @@ public class Serializer {
 
     public static void serializeOrder(HttpServletResponse resp, Order serverOrder) throws IOException {
         String jsonString = gson.toJson(serverOrder);
+        System.out.println(jsonString);
         PrintWriter out = resp.getWriter();
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         out.print(jsonString);
         out.flush();
     }
+
 }

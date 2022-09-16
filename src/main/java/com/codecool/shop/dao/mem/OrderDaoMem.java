@@ -1,15 +1,15 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.mem;
 
 import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.model.base.Order;
+import com.codecool.shop.model.Order;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class OrderDaoMem implements OrderDao {
     private static OrderDaoMem instance = null;
-    private List<Order> data = new ArrayList<>();
+    private Set<Order> data = new HashSet<>();
 
     private OrderDaoMem() {
     }
@@ -23,7 +23,10 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void add(Order order) {
-        order.setId(data.size() + 1);
+        int newID=data.size() + 1;
+        order.setId(newID);
+        order.getOrderItems().forEach(orderItem -> orderItem.setOrderId(newID));
+//TODO:uncommit on live        order.getPaymentDetails().setOrderId(newID);
         data.add(order);
 
     }
@@ -39,12 +42,12 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
-    public List<Order> getAll() {
+    public Set<Order> getAll() {
         return data;
     }
 
     @Override
-    public List<Order> getBy(int customerId) {
-        return data.stream().filter(t -> t.getCustomerId()==(customerId)).collect(Collectors.toList());
+    public Set<Order> getBy(int customerId) {
+        return data.stream().filter(t -> t.getUserId()==(customerId)).collect(Collectors.toSet());
     }
 }

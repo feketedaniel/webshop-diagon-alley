@@ -1,10 +1,12 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.model.info.AddressInfo;
-import com.codecool.shop.model.info.CustomerInfo;
-import com.codecool.shop.model.base.Order;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.model.PaymentDetails;
 import com.codecool.shop.service.ProductService;
+import org.apache.log4j.chainsaw.Main;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -15,23 +17,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = {"/checkout"})
 public class Checkout extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Order order = (Order) session.getAttribute("order");
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        ProductService productService = ProductService.init();
+        ProductService productService = null;
+        try {
+            productService = ProductService.init();
+        } catch (SQLException e) {
+            logger.error("SQLException: {}",e.getMessage());
+            throw new RuntimeException(e);
+        }
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
         if (order == null) {
+            logger.warn("Manual GET request sent to /checkout");
             resp.sendRedirect("/shop");
         } else if (order.getOrderItems().size() <= 0) {
+            logger.warn("Manual GET request sent to /checkout");
             resp.sendRedirect("/shop");
         }
+        context.setVariable("user",session.getAttribute("user"));
+
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         engine.process("product/checkout.html", context, resp.getWriter());
     }
@@ -39,51 +54,44 @@ public class Checkout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
+        ProductService productService = null;
+        try {
+            productService = ProductService.init();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         Order order = (Order) session.getAttribute("order");
         if (order == null) {
+            logger.warn("Manual POST request sent to /checkout");
             resp.sendRedirect("/shop");
         } else if (order.getOrderItems().size() <= 0) {
+            logger.warn("Manual POST request sent to /checkout");
             resp.sendRedirect("/shop");
         } else {
-            updateBillingInfo(order, req);
-            updateShippingInfo(order, req);
-            updateCustomerInfo(order, req);
+            PaymentDetails paymentDetails = new PaymentDetails();
+            updatePaymentDetails(paymentDetails, req);
+            order.setPaymentDetails(paymentDetails);
             order.setChecked(true);
-
+            productService.saveOrder(order);
+            logger.info("Order saved with id: {}",order.getId());
             session.setAttribute("order", order);
-
-            ProductService productService = ProductService.init();
-            productService.addOrder(order);
-
             resp.sendRedirect("/payment");
         }
     }
 
-    private void updateBillingInfo(Order order, HttpServletRequest req) {
-        String country = req.getParameter("billing-country");
-        String city = req.getParameter("billing-city");
-        int zip = Integer.parseInt(req.getParameter("zip-billing"));
-        String address = req.getParameter("address-billing");
-        AddressInfo billingInfo = new AddressInfo(country, city, zip, address);
-        order.setBillingInformation(billingInfo);
+    private void updatePaymentDetails(PaymentDetails paymentDetails, HttpServletRequest req) {
+        paymentDetails.setShippingCountry(req.getParameter("shipping-country"));
+        paymentDetails.setShippingCity(req.getParameter("shipping-city"));
+        paymentDetails.setShippingZip(Integer.parseInt(req.getParameter("zip-shipping")));
+        paymentDetails.setShippingStreetHouseNum(req.getParameter("address-shipping"));
+
+        paymentDetails.setBillingCountry(req.getParameter("billing-country"));
+        paymentDetails.setBillingCity(req.getParameter("billing-city"));
+        paymentDetails.setBillingZip(Integer.parseInt(req.getParameter("zip-billing")));
+        paymentDetails.setBillingStreetHouseNum(req.getParameter("address-billing"));
+
+        paymentDetails.setName(req.getParameter("name"));
+        paymentDetails.setEmail(req.getParameter("e-mail"));
+        paymentDetails.setPhone(req.getParameter("phone"));
     }
-
-    private void updateShippingInfo(Order order, HttpServletRequest req) {
-        String country = req.getParameter("shipping-country");
-        String city = req.getParameter("shipping-city");
-        int zip = Integer.parseInt(req.getParameter("zip-shipping"));
-        String address = req.getParameter("address-shipping");
-        AddressInfo shippingInfo = new AddressInfo(country, city, zip, address);
-        order.setShippingInformation(shippingInfo);
-    }
-
-    private void updateCustomerInfo(Order order, HttpServletRequest req) {
-        String name = req.getParameter("name");
-        String email = req.getParameter("e-mail");
-        String phone = req.getParameter("phone");
-        CustomerInfo customerInfo = new CustomerInfo(name, email, phone);
-        order.setCustomerInformation(customerInfo);
-    }
-
-
 }

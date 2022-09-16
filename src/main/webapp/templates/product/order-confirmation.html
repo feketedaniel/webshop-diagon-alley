@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script defer src="/static/js/orderConfirmation.js"></script>
 </head>
@@ -9,7 +9,34 @@
 <div th:replace="header.html :: logo-container"></div>
 <nav th:replace="header.html :: header-container"></nav>
 <div class="shadow"></div>
-<div class="container"></div>
+<div class="container">
+
+    <div class="confirmation-detail-wrap">
+        <div class="confirmation-detail">
+            <span class="confirmation-thanks">Thank you for your order!</span>
+            <table class="detail-table">
+                <title>Order Details</title>
+                <tr>
+                    <th>Product</th>
+                    <th>Amount</th>
+                    <th>Unit price</th>
+                    <th>SubTotal</th>
+                </tr>
+                <tr th:each="orderItem : ${orderItems}">
+                    <td th:text="${orderItem.name}">name</td>
+                    <td th:text="${orderItem.amount}">amount</td>
+                    <td th:text="${orderItem.getDefaultPrice()}">defprice</td>
+                    <td th:text="${orderItem.amount*orderItem.getDefaultPrice()}" class="confirmation-subtotal">subTotal</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td colspan="3" id="confirmation-total"></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
 <div th:replace="footer.html :: copy"></div>
 </body>
 </html>

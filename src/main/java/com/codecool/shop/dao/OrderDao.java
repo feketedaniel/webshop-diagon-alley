@@ -1,8 +1,8 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.model.base.Order;
+import com.codecool.shop.model.Order;
 
-import java.util.List;
+import java.util.Set;
 
 public interface OrderDao {
     void add(Order order);
@@ -11,8 +11,8 @@ public interface OrderDao {
 
     void remove(int id);
 
-    List<Order> getAll();
+    Set<Order> getAll();
 
-    List<Order> getBy(int customerId);
+    Set<Order> getBy(int customerId);
 
 }

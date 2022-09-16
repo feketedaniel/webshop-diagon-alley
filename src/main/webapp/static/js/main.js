@@ -7,6 +7,8 @@ async function pageSync() {
         let sessionJson = await response.json()
         let sessionOrderItemList = await sessionJson.orderItems
         if (sessionOrderItemList !== null) {
+
+
             refreshCartItems(sessionOrderItemList)
             changeAddToCartButtons(sessionOrderItemList)
             setCartItemCount(sessionOrderItemList.length)

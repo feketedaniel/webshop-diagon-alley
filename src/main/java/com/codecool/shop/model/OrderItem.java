@@ -1,4 +1,4 @@
-package com.codecool.shop.model.base;
+package com.codecool.shop.model;
 
 import java.math.BigDecimal;
 
@@ -9,10 +9,10 @@ public class OrderItem {
 
     protected String name;
     protected int amount;
+
     protected BigDecimal defaultPrice;
 
-    public OrderItem(Product product, Order order) {
-        this.orderId = order.id;
+    public OrderItem(Product product) {
         this.productId = product.id;
         this.name = product.name;
         this.defaultPrice = product.getDefaultPrice();
@@ -30,6 +30,7 @@ public class OrderItem {
     public int getProductId(){
         return productId;
     }
+
     public void setProductId(int productId){
         this.productId = productId;
     }
@@ -39,7 +40,6 @@ public class OrderItem {
     public void setOrderId(int orderId){
         this.orderId = orderId;
     }
-
     public String getName() {
         return name;
     }
@@ -54,5 +54,9 @@ public class OrderItem {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getDefaultPrice() {
+        return defaultPrice;
     }
 }

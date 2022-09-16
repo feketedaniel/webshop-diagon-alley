@@ -1,10 +1,10 @@
-package com.codecool.shop.dao.implementation;
+package com.codecool.shop.dao.mem;
 
 
 import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.model.base.Product;
-import com.codecool.shop.model.base.ProductCategory;
-import com.codecool.shop.model.base.Supplier;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
 
 import java.util.ArrayList;
 import java.util.List;

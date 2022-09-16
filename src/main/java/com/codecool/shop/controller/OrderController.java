@@ -1,8 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.util.Serializer;
-import com.codecool.shop.model.base.Order;
-import com.codecool.shop.model.base.Product;
+import com.codecool.shop.model.Order;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.service.ProductService;
 
 import javax.servlet.ServletException;
@@ -12,13 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(urlPatterns = {"/api/cart/*"})
 public class OrderController extends HttpServlet {
-    ProductService productService = ProductService.init();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ProductService productService = null;
+        try {
+            productService = ProductService.init();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         HttpSession session = req.getSession();
         Order order = (Order) session.getAttribute("order");
         if (order == null) {
@@ -26,13 +32,19 @@ public class OrderController extends HttpServlet {
         }
         int prodId = Integer.parseInt(req.getParameter("productId"));
         Product product = productService.getProductById(prodId);
-        order.addProduct(product, order);
+        order.addOrderItem(product);
         session.setAttribute("order", order);
         Serializer.serializeOrder(resp, order);
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ProductService productService = null;
+        try {
+            productService = ProductService.init();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         HttpSession session = req.getSession();
         Order order = (Order) session.getAttribute("order");
         if (order == null) {
@@ -40,7 +52,7 @@ public class OrderController extends HttpServlet {
         } else {
             int prodId = Integer.parseInt(req.getParameter("productId"));
             Product product = productService.getProductById(prodId);
-            order.subProduct(product, order);
+            order.subOrderItem(product);
             session.setAttribute("order", order);
             Serializer.serializeOrder(resp, order);
         }
@@ -48,13 +60,19 @@ public class OrderController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ProductService productService = null;
+        try {
+            productService = ProductService.init();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         HttpSession session = req.getSession();
         Order order = (Order) session.getAttribute("order");
         if (order == null) {
             resp.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
         } else {
-            int prodId = Integer.parseInt(req.getParameter("productId"));
-            order.removeOrderItem(prodId, order);
+            Product product = productService.getProductById(Integer.parseInt(req.getParameter("productId")));
+            order.removeOrderItem(product);
             session.setAttribute("order", order);
             Serializer.serializeOrder(resp, order);
         }

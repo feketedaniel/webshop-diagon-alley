@@ -417,7 +417,10 @@ a:active,
     transition: all 0.5s;
 }
 
-.order-detail-wrap,
+
+.login-wrap,
+.registration-wrap,
+.registration-wrap,
 .checkout-detail-wrap,
 .payment-detail-wrap {
     color: black;
@@ -432,6 +435,7 @@ a:active,
     background-image: url("/static/img/pergamen.png");
 }
 
+
 .payment-detail-wrap input,
 .payment-detail-wrap input:target,
 .payment-detail-wrap input:active,
@@ -442,6 +446,17 @@ a:active,
     border-bottom: black solid 1px;
     float: right;
 }
+
+.login-wrap input,
+.login-wrap input:target,
+.login-wrap input:active,
+.registration-wrap input,
+.registration-wrap input:target,
+.registration-wrap input:active{
+    all: unset;
+    border-bottom: black solid 1px;
+}
+
 
 .payment-detail-wrap input,
 .payment-detail-wrap input:target,
@@ -575,3 +590,28 @@ a:active,
     text-decoration: underline 1px solid;
     color: blue;
 }
+
+.confirmation-detail-wrap{
+    color: black;
+    position: relative;
+    margin: 30px auto 30px auto;
+    padding: 1em 3em;
+    background-color: wheat;
+    box-shadow: black 10px 10px 10px, black -10px -10px 10px;
+}
+.confirmation-detail{
+    position: relative;
+    margin: 3em auto 3em auto;
+    text-align: center;
+}
+#confirmation-total{
+    float: right;
+}
+
+.login-wrap,
+.registration-wrap{
+    margin: 8em auto;
+    text-align: center;
+}
+
+.login-wrap
