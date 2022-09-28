@@ -1,20 +1,25 @@
 package com.codecool.shop.model;
 
+import java.util.UUID;
+
 public class User {
-    protected int id;
-    protected String name;
-    protected String email;
-    protected byte[] password;
-    protected byte[] salt;
+    private UUID id;
+    private String name;
+    private String email;
+    private byte[] password;
+    private byte[] salt;
     public User(String name, String email, byte[]password, byte[]salt){
+        this.id = UUID.randomUUID();
+        this.name = name;
+        this.email = email;
 
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

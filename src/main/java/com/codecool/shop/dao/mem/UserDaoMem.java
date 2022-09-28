@@ -20,8 +20,6 @@ public class UserDaoMem implements UserDao {
     }
 
     public void add(User user){
-        int newId = data.size()+1;
-        user.setId(newId);
         data.add(user);
         data.forEach(System.out::println);
     }

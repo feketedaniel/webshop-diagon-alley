@@ -3,9 +3,10 @@ package com.codecool.shop.model;
 import java.util.Date;
 
 public class PaymentDetails {
+    private static int nextId=0;
     private int id;
     private int orderId;
-    private int userId;
+    private Integer userId;
     private String shippingCountry;
     private String shippingCity;
     private int shippingZip;
@@ -22,15 +23,16 @@ public class PaymentDetails {
     private Date payDate;
 
 
+    public PaymentDetails(){
+        this.id = nextId++;
+    }
+
     public Date getPayDate() {
         return payDate;
     }
 
     public void setPayDate(Date payDate) {
         this.payDate = payDate;
-    }
-
-    public PaymentDetails(){
     }
 
     public int getId() {
@@ -41,7 +43,7 @@ public class PaymentDetails {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
@@ -143,5 +145,20 @@ public class PaymentDetails {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    @Override
+    public String toString() {
+        return "\n\t\tPayment id: "+id+
+                "\n\t\tOrder id: "+orderId+
+                "\n\t\tUser id: "+userId+
+                "\n\t\tShipping details: "+
+                "\n\t\t\tCountry/City: "+shippingCountry+", "+shippingCity+
+                "\n\t\t\tAdress/Zip: "+shippingStreetHouseNum+", "+shippingZip+
+                "\n\t\tBilling details: "+
+                "\n\t\t\tCountry/City: "+billingCountry+", "+billingCity+
+                "\n\t\t\tAdress/Zip: "+billingStreetHouseNum+", "+billingZip+
+                "\n\t\tBuyer info:"+
+                "\n\t\t\t"+name+", "+email+", "+phone;
     }
 }

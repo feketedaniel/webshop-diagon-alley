@@ -1,18 +1,16 @@
 package com.codecool.shop.model;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Order {
-    protected int id;
-    protected int userId;
-    protected PaymentDetails paymentDetails;
+    protected Integer id = null;
+    protected Integer userId = null;
+    protected PaymentDetails paymentDetails = null;
     protected boolean isChecked = false;
     protected boolean isPayed = false;
-    protected Set<OrderItem> orderItems;
-
-    public Order(){
-        this.orderItems = new HashSet<>();
-    }
+    protected Set<OrderItem> orderItems = new HashSet<>();
 
     public Set<OrderItem> getOrderItems() {
         return orderItems;
@@ -28,7 +26,6 @@ public class Order {
 
     public void setPayed(boolean payed) {
         isPayed = payed;
- /*TODO:delete line on live*/       paymentDetails = new PaymentDetails();
         paymentDetails.setPayDate(new Date());
     }
 
@@ -57,7 +54,7 @@ public class Order {
         this.id = id;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
@@ -74,7 +71,7 @@ public class Order {
         orderItems.add(orderItem);
     }
 
-    public void subOrderItem(Product product){
+    public void subOrderItem(Product product) {
         orderItems
                 .stream()
                 .filter(oi -> oi.getProductId() == product.getId())
@@ -87,20 +84,33 @@ public class Order {
                 });
     }
 
-    public void removeOrderItem(Product product){
+    public void removeOrderItem(Product product) {
         orderItems.stream()
                 .filter(oi -> oi.getProductId() == product.getId())
                 .findFirst().ifPresent(orderItem -> orderItems.remove(orderItem));
 
     }
 
+    public void setPaymentDetailsOrderId(int orderId) {
+        paymentDetails.setOrderId(orderId);
+    }
+    public void setOrderItemsOrderId(int orderId) {
+        orderItems.forEach(orderItem -> orderItem.setOrderId(orderId));
+    }
+
     @Override
     public String toString() {
-        return "\nOrder Id: " + this.id + "\n" +
-                "Customer Id: " + this.userId + "\n" +
-                "Payment Info Id: " + this.paymentDetails + "\n" +
-                "Checked: " + this.isChecked + "\n" +
-                "Payed: " + this.isPayed + "\n";
+        String order = "\n\tOrder Id: " + this.id +
+                "\n\tCustomer Id: " + this.userId +
+                "\n\tPayment Info: " + this.paymentDetails +
+                "\n\tChecked: " + this.isChecked +
+                "\n\tPayed: " + this.isPayed +
+                "\n\tOrder Items: ";
+        for (OrderItem orderItem : orderItems) {
+            order += orderItem;
+        }
+
+        return order;
     }
 
 }

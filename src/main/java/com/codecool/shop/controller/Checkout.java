@@ -33,19 +33,19 @@ public class Checkout extends HttpServlet {
         try {
             productService = ProductService.init();
         } catch (SQLException e) {
-            logger.error("SQLException: {}",e.getMessage());
+            logger.error("SQLException: {}", e.getMessage());
             throw new RuntimeException(e);
         }
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
         if (order == null) {
-            logger.warn("Manual GET request sent to /checkout");
+            logger.warn("Manual request sent to /checkout");
             resp.sendRedirect("/shop");
-        } else if (order.getOrderItems().size() <= 0) {
-            logger.warn("Manual GET request sent to /checkout");
+        } else if (order.getOrderItems().size() == 0) {
+            logger.warn("Manual request sent to /checkout");
             resp.sendRedirect("/shop");
         }
-        context.setVariable("user",session.getAttribute("user"));
+        context.setVariable("user", session.getAttribute("user"));
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         engine.process("product/checkout.html", context, resp.getWriter());
@@ -62,21 +62,21 @@ public class Checkout extends HttpServlet {
         }
         Order order = (Order) session.getAttribute("order");
         if (order == null) {
-            logger.warn("Manual POST request sent to /checkout");
+            logger.warn("Manual request sent to /checkout");
             resp.sendRedirect("/shop");
-        } else if (order.getOrderItems().size() <= 0) {
-            logger.warn("Manual POST request sent to /checkout");
+        } else if (order.getOrderItems().size() == 0) {
+            logger.warn("Manual request sent to /checkout");
             resp.sendRedirect("/shop");
-        } else {
-            PaymentDetails paymentDetails = new PaymentDetails();
-            updatePaymentDetails(paymentDetails, req);
-            order.setPaymentDetails(paymentDetails);
-            order.setChecked(true);
-            productService.saveOrder(order);
-            logger.info("Order saved with id: {}",order.getId());
-            session.setAttribute("order", order);
-            resp.sendRedirect("/payment");
         }
+        PaymentDetails paymentDetails = new PaymentDetails();
+        updatePaymentDetails(paymentDetails, req);
+        order.setPaymentDetails(paymentDetails);
+        order.setChecked(true);
+        productService.saveOrder(order);
+        logger.info("Order saved with id: {}", order.getId());
+        session.setAttribute("order", order);
+        resp.sendRedirect("/payment");
+
     }
 
     private void updatePaymentDetails(PaymentDetails paymentDetails, HttpServletRequest req) {

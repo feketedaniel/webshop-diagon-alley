@@ -23,10 +23,10 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void add(Order order) {
-        int newID=data.size() + 1;
+        int newID = data.size() + 1;
         order.setId(newID);
-        order.getOrderItems().forEach(orderItem -> orderItem.setOrderId(newID));
-//TODO:uncommit on live        order.getPaymentDetails().setOrderId(newID);
+        order.setOrderItemsOrderId(newID);
+        order.setPaymentDetailsOrderId(newID);
         data.add(order);
 
     }
@@ -48,6 +48,6 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public Set<Order> getBy(int customerId) {
-        return data.stream().filter(t -> t.getUserId()==(customerId)).collect(Collectors.toSet());
+        return data.stream().filter(t -> t.getUserId() == (customerId)).collect(Collectors.toSet());
     }
 }

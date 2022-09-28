@@ -8,7 +8,6 @@ import org.thymeleaf.context.WebContext;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,6 @@ import java.sql.SQLException;
 
 @WebServlet(urlPatterns = {"/registration"})
 public class Registration extends HttpServlet {
-    private static byte[] testSalt;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -70,26 +68,18 @@ public class Registration extends HttpServlet {
             SecureRandom random = new SecureRandom();
 
             byte[] salt = new byte[16];
-            if (testSalt == null) {
-                random.nextBytes(salt);
-                testSalt = salt;
-            } else {
-                salt = testSalt;
-            }
+            random.nextBytes(salt);
+
             KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
             SecretKeyFactory factory = null;
             byte[] hash;
             try {
                 factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-            } catch (NoSuchAlgorithmException e) {
+                hash = factory.generateSecret(spec).getEncoded();
+            } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
                 throw new RuntimeException(e);
             }
 
-            try {
-                hash = factory.generateSecret(spec).getEncoded();
-            } catch (InvalidKeySpecException e) {
-                throw new RuntimeException(e);
-            }
             User user = new User(name, email, hash, salt);
             productService.addNewUser(user);
 

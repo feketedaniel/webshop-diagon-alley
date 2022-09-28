@@ -1,7 +1,6 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.model.Order;
 import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
 
 @WebServlet(urlPatterns = {"/"})
@@ -29,10 +29,17 @@ public class Index extends HttpServlet {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         HttpSession session = req.getSession();
-        Order order = (Order) session.getAttribute("order");
-        if(order!=null)productService.saveOrder(order);
 
-        context.setVariable("user",session.getAttribute("user"));
+        System.out.println("Session contents: ");
+        Enumeration<String> attributes = session.getAttributeNames();
+        while (attributes.hasMoreElements()) {
+            String attribute = (String) attributes.nextElement();
+            System.out.println("Attribute name: "+attribute+"\n" +
+                    "Attribute values:\t "+session.getAttribute(attribute));
+        }
+
+        System.out.println("Saved orders:");
+        productService.getAllOrder().forEach(System.out::println);
 
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
