@@ -25,7 +25,6 @@ public class Index extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("logger index page loaded");
         ProductService productService = null;
         try {
             productService = ProductService.init();

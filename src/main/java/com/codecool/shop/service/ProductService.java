@@ -16,10 +16,7 @@ import javax.sql.DataSource;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Objects;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 public class ProductService {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -107,7 +104,7 @@ public class ProductService {
         userDao.add(user);
     }
 
-    public User findByEmail(String email){
+    public Optional<User> findByEmail(String email){
         return userDao.findByEmail(email);
     }
 
