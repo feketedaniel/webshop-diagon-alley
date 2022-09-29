@@ -51,7 +51,6 @@ public class ProductService {
                 UserDao userDao = UserDaoMem.getInstance();
                 instance = new ProductService(productDataStore, productCategoryDataStore, supplierDataStorage, orderDao, userDao);
             }
-            logger.info("Memory based implementation loaded");
             return instance;
         } else if (Objects.equals(connProps.getProperty("dao"), "jdbc")) {
             DataSource dataSource = connect();
@@ -60,7 +59,6 @@ public class ProductService {
             SupplierDao supplierDao = new SupplierDaoJdbc(dataSource);
             OrderDao orderDao = new OrderDaoJdbc(dataSource);
             UserDao userDao = null;
-            logger.info("PSQL based implementation loaded");
             return new ProductService(productDao, productCategoryDao, supplierDao, orderDao, userDao);
         } else {
             logger.error("Incorrect config property: {}", connProps.getProperty("dao"));
@@ -74,9 +72,7 @@ public class ProductService {
         dataSource.setUser(connProps.getProperty("user"));
         dataSource.setPassword(connProps.getProperty("password"));
 
-        logger.info("Trying to connect db...");
         dataSource.getConnection().close();
-        logger.info("Connection OK");
 
         return dataSource;
     }
