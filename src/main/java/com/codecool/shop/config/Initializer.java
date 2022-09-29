@@ -3,17 +3,26 @@ package com.codecool.shop.config;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.dao.mem.ProductCategoryDaoMem;
 import com.codecool.shop.dao.mem.ProductDaoMem;
 import com.codecool.shop.dao.mem.SupplierDaoMem;
+import com.codecool.shop.dao.mem.UserDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.User;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.math.BigDecimal;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 
 @WebListener
 public class Initializer implements ServletContextListener {
@@ -68,5 +77,23 @@ public class Initializer implements ServletContextListener {
         productDataStore.add(new Product("Ravenclaw Robe", new BigDecimal("49.9"), "GAL", "Hogwarts school uniform", robe, malkins, "https://cdn.shopify.com/s/files/1/0514/6332/3817/products/1296491_1296657_0_grande.png?v=1613579776"));
         productDataStore.add(new Product("Slytherin Robe", new BigDecimal("49.9"), "GAL", "Hogwarts school uniform", robe, malkins, "https://cdn.shopify.com/s/files/1/0514/6332/3817/products/1296484_1296653_0_grande.png?v=1613579670"));
         productDataStore.add(new Product("Aurora", new BigDecimal("49.9"), "GAL", "Snowy Owl", pets, eeylopsOwlEmporium, "https://www.seekpng.com/png/full/46-465733_snowy-owl-png.png"));
+
+        UserDao userDao = UserDaoMem.getInstance();
+
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        KeySpec spec = new PBEKeySpec("password".toCharArray(), salt, 65536, 128);
+        SecretKeyFactory factory = null;
+        byte[] hash;
+        try {
+            factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            hash = factory.generateSecret(spec).getEncoded();
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            throw new RuntimeException(e);
+        }
+
+        userDao.add(new User("Dani","dani@gmail.com",hash,salt));
+
     }
 }

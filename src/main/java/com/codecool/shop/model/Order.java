@@ -3,10 +3,11 @@ package com.codecool.shop.model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class Order {
     protected Integer id = null;
-    protected Integer userId = null;
+    protected UUID userId = null;
     protected PaymentDetails paymentDetails = null;
     protected boolean isChecked = false;
     protected boolean isPayed = false;
@@ -54,11 +55,11 @@ public class Order {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

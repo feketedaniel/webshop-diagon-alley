@@ -41,8 +41,13 @@ public class Index extends HttpServlet {
         System.out.println("Saved orders:");
         productService.getAllOrder().forEach(System.out::println);
 
+        System.out.println("Saved users:");
+        productService.getAllUser().forEach(System.out::println);
+
+
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
+        context.setVariable("user",session.getAttribute("user"));
         engine.process("product/index.html", context, resp.getWriter());
     }
 }

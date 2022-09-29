@@ -66,10 +66,8 @@ public class Registration extends HttpServlet {
             String password = req.getParameter("reg-password");
 
             SecureRandom random = new SecureRandom();
-
             byte[] salt = new byte[16];
             random.nextBytes(salt);
-
             KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
             SecretKeyFactory factory = null;
             byte[] hash;

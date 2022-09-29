@@ -1,5 +1,6 @@
 package com.codecool.shop.model;
 
+import java.util.Arrays;
 import java.util.UUID;
 
 public class User {
@@ -12,7 +13,17 @@ public class User {
         this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;
+        this.password = password;
+        this.salt = salt;
 
+    }
+
+    public byte[] getPassword() {
+        return password;
+    }
+
+    public byte[] getSalt() {
+        return salt;
     }
 
     public UUID getId() {
@@ -37,5 +48,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "\n\tUser id: " + id.toString() +
+                "\n\tUser name: "+ name +
+                "\n\tUser email: "+ email+
+                "\n\tUser password: "+ Arrays.toString(password) +
+                "\n\tUser salt: "+ Arrays.toString(salt);
     }
 }

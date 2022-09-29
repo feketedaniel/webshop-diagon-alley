@@ -6,6 +6,7 @@ import com.codecool.shop.model.Order;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.Set;
+import java.util.UUID;
 
 public class OrderDaoJdbc implements OrderDao {
     private DataSource dataSource;
@@ -17,10 +18,10 @@ public class OrderDaoJdbc implements OrderDao {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO \"order\" (user_id, payment_details_id, is_checked, is_payed) VALUES (?, ?, ?,?)";
             PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            if (order.getUserId() == 0) {
+            if (order.getUserId() == null) {
                 st.setNull(1, Types.INTEGER);
             } else {
-                st.setInt(1, order.getUserId());
+                st.setString(1, order.getUserId().toString());
             }
             st.setInt(2, order.getPaymentDetails().getId());
             st.setBoolean(3, order.isPayed());
@@ -53,7 +54,7 @@ public class OrderDaoJdbc implements OrderDao {
     }
 
     @Override
-    public Set<Order> getBy(int customerId) {
+    public Set<Order> getBy(UUID customerId) {
         return null;
     }
 }

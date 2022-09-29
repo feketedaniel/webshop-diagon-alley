@@ -5,6 +5,7 @@ import com.codecool.shop.model.Order;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class OrderDaoMem implements OrderDao {
@@ -47,7 +48,7 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
-    public Set<Order> getBy(int customerId) {
+    public Set<Order> getBy(UUID customerId) {
         return data.stream().filter(t -> t.getUserId() == (customerId)).collect(Collectors.toSet());
     }
 }

@@ -142,4 +142,8 @@ public class ProductService {
     public void setOrderPayed(int orderId) {
         orderDao.find(orderId).setPayed(true);
     }
+
+    public Set<User> getAllUser(){
+        return userDao.getAllUser();
+    }
 }

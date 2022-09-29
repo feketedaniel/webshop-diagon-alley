@@ -6,6 +6,7 @@ import com.codecool.shop.model.User;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 public class UserDaoMem implements UserDao {
@@ -21,22 +22,25 @@ public class UserDaoMem implements UserDao {
 
     public void add(User user){
         data.add(user);
-        data.forEach(System.out::println);
     }
 
     @Override
     public User findByEmail(String email) {
-        data.forEach(user -> System.out.println(user.getEmail()));
         return data
                 .stream()
                 .filter(user -> Objects.equals(user.getEmail(), email))
-                .findAny().get();
+                .findAny().orElseGet(null);
     }
 
     @Override
     public boolean isRegistered(String email) {
         return data.stream()
                 .anyMatch(user -> Objects.equals(user.getEmail(), email));
+    }
+
+    @Override
+    public Set<User> getAllUser() {
+        return data;
     }
 }
 
