@@ -21,7 +21,7 @@ public class Logout extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
         String email = ((SessionUser) session.getAttribute("user")).getEmail();
-        session.removeAttribute("user");
+        session.invalidate();
         logger.info("User {} logged out", email);
         resp.sendRedirect("/shop");
     }

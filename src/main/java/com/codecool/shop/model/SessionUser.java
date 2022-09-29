@@ -12,6 +12,11 @@ public class SessionUser {
         this.name = name;
         this.email = email;
     }
+    public SessionUser(User user){
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+    }
 
     public UUID getId() {
         return id;

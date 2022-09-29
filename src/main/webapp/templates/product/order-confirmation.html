@@ -25,8 +25,8 @@
                 <tr th:each="orderItem : ${orderItems}">
                     <td th:text="${orderItem.name}">name</td>
                     <td th:text="${orderItem.amount}">amount</td>
-                    <td th:text="${orderItem.getDefaultPrice()}">defprice</td>
-                    <td th:text="${orderItem.amount*orderItem.getDefaultPrice()}" class="confirmation-subtotal">subTotal</td>
+                    <td th:text="${orderItem.getDefaultPrice()}+' GAL'">defprice</td>
+                    <td th:text="${orderItem.amount*orderItem.getDefaultPrice()}+' GAL'" class="confirmation-subtotal">subTotal</td>
                 </tr>
                 <tr>
                     <td></td>

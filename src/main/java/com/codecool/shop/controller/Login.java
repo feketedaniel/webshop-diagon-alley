@@ -81,8 +81,6 @@ public class Login extends HttpServlet {
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(Arrays.toString(hash));
-        System.out.println(Arrays.toString(registeredUser.getPassword()));
         if (Arrays.toString(hash).equals(Arrays.toString(registeredUser.getPassword()))) {
             session.setAttribute("user", new SessionUser(registeredUser.getId(),
                     registeredUser.getName(),

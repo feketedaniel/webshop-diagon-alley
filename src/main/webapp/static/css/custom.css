@@ -94,9 +94,13 @@ input::-webkit-inner-spin-button {
     height: 100%;
     box-shadow: 50px 80px 50px black inset, -50px -80px 50px black inset !important;
 }
-a,
+.nav-menu a,
 li a {
     all: unset !important;
+}
+
+.connect a{
+    padding:0em 1em!important;
 }
 
 .header-container {
@@ -608,8 +612,9 @@ li a:active,
     margin: 3em auto 3em auto;
     text-align: center;
 }
-#confirmation-total{
-    float: right;
+#confirmation-total,
+.confirmation-subtotal{
+    text-align: end;
 }
 
 .login-wrap,
@@ -617,5 +622,20 @@ li a:active,
     margin: 8em auto;
     text-align: center;
 }
+.registration-wrap form,
+.login-wrap form{
+    position: relative;
+    top: 30%;
+}
 
-.login-wrap
+th{
+    padding: 0.5em 2em;
+}
+
+#reg-name,
+#reg-email,
+#reg-password,
+#login-email,
+#login-password{
+    margin-bottom: 2em;
+}

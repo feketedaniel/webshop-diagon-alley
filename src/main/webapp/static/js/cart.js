@@ -37,7 +37,7 @@ async function addProductToCart(productId) {
 async function subProductToCart(productId) {
     let response = await fetch("/api/cart/sub?productId=" + productId, {"method": "PUT"})
     if (response.ok) {
-        const cardAmountContainer = document.querySelector('.product-amount-counter[data-prod-id="' + productId + '"]')
+        const cardAmountContainer = document.querySelector('.line-amount-counter[data-prod-id="' + productId + '"]')
         if (parseInt(cardAmountContainer.innerText) === 1) rebuildToDefault(productId)
         await pageSync()
     } else {
@@ -74,13 +74,15 @@ function refreshCartItems(orderItemList) {
 
 function rebuildToDefault(productId) {
     const buttonContainer = document.querySelector('.cart-button-container[data-prod-id="' + productId + '"]')
-    rebuildAddButton(buttonContainer)
+    if(buttonContainer) {
+        rebuildAddButton(buttonContainer)
+    }
     const oldItemCount = document.querySelector(".fa-solid.fa-cart-shopping").getAttribute("value")
     setCartItemCount(+oldItemCount - 1)
     const orderItemContainer = document.querySelector('.order-item-container[data-prod-id="' + productId + '"]')
     setTimeout(() => {
         orderItemContainer.remove()
-    }, 500)
+    }, 1000)
     orderItemContainer.classList.add("disappear")
 }
 

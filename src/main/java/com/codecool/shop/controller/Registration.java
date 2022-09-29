@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.model.SessionUser;
 import com.codecool.shop.model.User;
 import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
@@ -80,14 +81,10 @@ public class Registration extends HttpServlet {
 
             User user = new User(name, email, hash, salt);
             productService.addNewUser(user);
-
+            SessionUser sessionUser = new SessionUser(user);
+            session.setAttribute("user", sessionUser);
+            resp.sendRedirect("/shop");
         }
-
-
-        context.setVariable("user", session.getAttribute("user"));
-        context.setVariable("categories", productService.getAllProductCategory());
-        context.setVariable("suppliers", productService.getAllSupplier());
-        engine.process("product/shop.html", context, resp.getWriter());
-
+        resp.sendRedirect("/registration");
     }
 }
