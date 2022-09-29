@@ -12,5 +12,24 @@ public class SessionUser {
         this.name = name;
         this.email = email;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    @Override
+    public String toString() {
+        return "\n\tUsername: "+name+
+                "\n\tEmail: "+email+
+                "\n\tId: "+id;
+    }
 }
 

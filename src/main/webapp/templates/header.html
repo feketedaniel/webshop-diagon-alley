@@ -63,7 +63,7 @@
         <div class="connect nav-menu">
             <a class="nav-menu" th:if="${user}==null" href="/login">Login</a>
             <a class="nav-menu" th:if="${user}==null" href="/registration">Register</a>
-            <span th:if="${user}!=null"></span>
+            <span th:if="${user}!=null" th:text="${user.getEmail()}"></span>
             <a class="nav-menu" href="/logout" th:if="${user}!=null">Logout</a>
         </div>
         <ul class="cart">
