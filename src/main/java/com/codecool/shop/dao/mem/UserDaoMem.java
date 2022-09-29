@@ -25,11 +25,11 @@ public class UserDaoMem implements UserDao {
     }
 
     @Override
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         return data
                 .stream()
                 .filter(user -> Objects.equals(user.getEmail(), email))
-                .findAny().orElseGet(null);
+                .findAny();
     }
 
     @Override

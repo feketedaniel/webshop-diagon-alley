@@ -2,6 +2,9 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.service.ProductService;
+import org.apache.log4j.chainsaw.Main;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -18,6 +21,9 @@ import java.util.Enumeration;
 
 @WebServlet(urlPatterns = {"/"})
 public class Index extends HttpServlet {
+
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = null;
         try {

@@ -12,6 +12,9 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.model.User;
+import org.apache.log4j.chainsaw.Main;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -27,8 +30,12 @@ import java.security.spec.KeySpec;
 @WebListener
 public class Initializer implements ServletContextListener {
 
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        logger.info("Server content initialization...");
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
@@ -95,5 +102,6 @@ public class Initializer implements ServletContextListener {
 
         userDao.add(new User("Dani","dani@gmail.com",hash,salt));
 
+        logger.info("Server content initialization finished.");
     }
 }
