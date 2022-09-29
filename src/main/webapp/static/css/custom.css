@@ -94,7 +94,7 @@ input::-webkit-inner-spin-button {
     height: 100%;
     box-shadow: 50px 80px 50px black inset, -50px -80px 50px black inset !important;
 }
-
+a,
 li a {
     all: unset !important;
 }
@@ -379,6 +379,10 @@ a:active,
     margin: 0 auto;
 }
 
+a:target,
+a:active,
+li a:target,
+li a:active,
 .order-item-button-container a:active,
 .order-item-button-container a:target,
 .order-item-delete:active,

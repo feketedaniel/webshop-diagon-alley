@@ -60,16 +60,16 @@
         </li>
     </ul>
     <div class="nav-toolbox">
-        <div class="connect">
-            <a th:if="${user}==null" href="/login">Login</a>
-            <a th:if="${user}==null" href="/registration">Register</a>
+        <div class="connect nav-menu">
+            <a class="nav-menu" th:if="${user}==null" href="/login">Login</a>
+            <a class="nav-menu" th:if="${user}==null" href="/registration">Register</a>
             <span th:if="${user}!=null"></span>
-            <a href="/logout" th:if="${user}!=null">Logout</a>
+            <a class="nav-menu" href="/logout" th:if="${user}!=null">Logout</a>
         </div>
         <ul class="cart">
             <li><i class="fa-solid fa-cart-shopping fa-lg" value="0"></i>
                 <ul class="cart-items visible">
-                    <li class="check-out"><a class="btn-check-out" href="/checkout">check out</a><span class="cart-total-price-wrap">Total: <span
+                    <li class="check-out"><a class="btn-check-out" href="/checkout">Check Out</a><span class="cart-total-price-wrap">Total: <span
                             class="cart-total-price">0</span> GAL</span></li>
                 </ul>
             </li>
