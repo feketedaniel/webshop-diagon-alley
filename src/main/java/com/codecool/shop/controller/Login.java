@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
+import com.codecool.shop.model.SessionUser;
 import com.codecool.shop.model.User;
 import com.codecool.shop.service.ProductService;
 import org.thymeleaf.TemplateEngine;
@@ -85,17 +86,4 @@ public class Login extends HttpServlet {
         resp.sendRedirect("/login");
 
     }
-
-    private class SessionUser {
-        private UUID id;
-        private String name;
-        private String email;
-
-        public SessionUser(UUID id, String name, String email) {
-            this.id = id;
-            this.name = name;
-            this.email = email;
-        }
-    }
-
 }
