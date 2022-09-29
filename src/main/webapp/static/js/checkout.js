@@ -59,7 +59,7 @@ async function setUpCheckoutPage() {
 }
 
 async function emailValidation(email) {
-    let response = await fetch("https://emailvalidation.abstractapi.com/v1/?api_key=afb5d4e2ffc3440093ba67786a0d836d&email=" + email)
+    let response = await fetch("https://emailvalidation.abstractapi.com/v1/?api_key=7a82fe2a5e7c4e4bac9aef45ce1a028a&email=" + email)
     if (response.ok) {
         let json = await response.json()
         let validationIcon = document.querySelector("#email-validation-icon")
