@@ -11,56 +11,63 @@
 <div class="shadow"></div>
 <div class="container">
     <div class="checkout-detail-wrap">
-        <form class="checkout-form" action="/checkout" method="post" autocomplete="off" onsubmit="return validateSubmit()">
+        <form action="/checkout" autocomplete="off" class="checkout-form" method="post"
+              onsubmit="return validateSubmit()">
 
             <span class="checkout-span-center">Billing information</span><br><br>
-            <select id="billing-country" name="billing-country" class="checkout-select" required>
+            <select class="checkout-select" id="billing-country" name="billing-country" required>
                 <option disabled selected value="">Select a Country</option>
             </select>
-            <select id="billing-city" name="billing-city" class="checkout-select" required>
+            <select class="checkout-select" id="billing-city" name="billing-city" required>
                 <option disabled selected value="">Select a City</option>
             </select><br><br>
             <label for="zip-billing">Zip: </label>
-            <input id="zip-billing" name="zip-billing" type="number" data-index="1" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'" required><br>
+            <input data-index="1" id="zip-billing" name="zip-billing" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'"
+                   required type="number"><br>
             <label for="address-billing">Address: </label>
-            <input id="address-billing" name="address-billing" type="text" data-index="2" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'" required><br><br>
+            <input data-index="2" id="address-billing" name="address-billing" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'"
+                   required type="text"><br><br>
 
 
             <span class="checkout-span-center">Personal information</span><br><br>
             <label for="name">Name: </label>
-            <input id="name" name="name" type="text" data-index="3" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'" required><br>
+            <input data-index="3" id="name" name="name" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'"
+                   required type="text"><br>
             <label for="e-mail">E-Mail: </label>
             <div id="e-mail-validation-container">
-                <i id="email-validation-icon" class=""></i>
-                <input id="e-mail"
-                       name="e-mail"
-                       type="text"
-                       data-index="4"
+                <i class="" id="email-validation-icon"></i>
+                <input data-index="4"
                        data-is-valid="false"
+                       id="e-mail"
+                       name="e-mail"
                        oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'"
-                required>
-                <div id="e-mail-arrowbox" class="e-mail-arrowbox hidden">
+                       required
+                       type="text">
+                <div class="e-mail-arrowbox hidden" id="e-mail-arrowbox">
                     <span id="e-mail-suggestion"></span>
                 </div>
             </div>
             <br>
             <label for="phone">Phone: </label>
-            <input id="phone" name="phone" type="text" data-index="5" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'" required><br><br>
+            <input data-index="5" id="phone" name="phone" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'"
+                   required type="text"><br><br>
 
 
             <span class="checkout-span-center">Shipping information</span><br><br>
-            <select id="shipping-country" name="shipping-country" class="checkout-select" required>
+            <select class="checkout-select" id="shipping-country" name="shipping-country" required>
                 <option disabled selected value>Select a Country</option>
             </select>
-            <select id="shipping-city" name="shipping-city" class="checkout-select" required>
+            <select class="checkout-select" id="shipping-city" name="shipping-city" required>
                 <option disabled selected value="">Select a City</option>
             </select><br><br>
             <label for="zip-shipping">Zip: </label>
-            <input id="zip-shipping" name="zip-shipping" type="number" data-index="6" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'" required><br>
+            <input data-index="6" id="zip-shipping" name="zip-shipping" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'"
+                   required type="number"><br>
             <label for="address-shipping">Address: </label>
-            <input id="address-shipping" name="address-shipping" type="text" data-index="7" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'" required><br>
+            <input data-index="7" id="address-shipping" name="address-shipping" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px'"
+                   required type="text"><br>
             <div class="center-input">
-            <input type="submit" class="input-submit" value="Go to payment">
+                <input class="input-submit" type="submit" value="Go to payment">
             </div>
         </form>
     </div>

@@ -9,7 +9,8 @@ public class User {
     private String email;
     private byte[] password;
     private byte[] salt;
-    public User(String name, String email, byte[]password, byte[]salt){
+
+    public User(String name, String email, byte[] password, byte[] salt) {
         this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;
@@ -53,9 +54,9 @@ public class User {
     @Override
     public String toString() {
         return "\n\tUser id: " + id.toString() +
-                "\n\tUser name: "+ name +
-                "\n\tUser email: "+ email+
-                "\n\tUser password: "+ Arrays.toString(password) +
-                "\n\tUser salt: "+ Arrays.toString(salt);
+                "\n\tUser name: " + name +
+                "\n\tUser email: " + email +
+                "\n\tUser password: " + Arrays.toString(password) +
+                "\n\tUser salt: " + Arrays.toString(salt);
     }
 }

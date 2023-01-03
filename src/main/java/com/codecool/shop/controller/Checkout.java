@@ -4,7 +4,6 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.PaymentDetails;
 import com.codecool.shop.service.ProductService;
-import org.apache.log4j.chainsaw.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thymeleaf.TemplateEngine;
@@ -21,7 +20,7 @@ import java.sql.SQLException;
 
 @WebServlet(urlPatterns = {"/checkout"})
 public class Checkout extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Checkout.class);
 
 
     @Override

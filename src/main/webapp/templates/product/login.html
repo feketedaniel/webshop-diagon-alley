@@ -7,15 +7,15 @@
 <div class="shadow"></div>
 <div class="container">
 
-  <div class="login-wrap">
-    <form action="/login" method="post">
-      <label for="login-email">E-mail address:</label><br>
-      <input type="text" id="login-email" name="login-email" required><br>
-      <label for="login-password">Password:</label><br>
-      <input id="login-password" name="login-password" type="password" required><br>
-      <input type="submit" value="Login">
-    </form>
-  </div>
+    <div class="login-wrap">
+        <form action="/login" method="post">
+            <label for="login-email">E-mail address:</label><br>
+            <input id="login-email" name="login-email" required type="text"><br>
+            <label for="login-password">Password:</label><br>
+            <input id="login-password" name="login-password" required type="password"><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
 </div>
 <div th:replace="footer.html :: copy"></div>
 </body>

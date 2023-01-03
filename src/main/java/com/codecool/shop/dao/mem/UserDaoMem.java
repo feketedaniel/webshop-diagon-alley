@@ -14,13 +14,13 @@ public class UserDaoMem implements UserDao {
     private Set<User> data = new HashSet<>();
 
     public static UserDaoMem getInstance() {
-        if (instance==null){
+        if (instance == null) {
             instance = new UserDaoMem();
         }
         return instance;
     }
 
-    public void add(User user){
+    public void add(User user) {
         data.add(user);
     }
 

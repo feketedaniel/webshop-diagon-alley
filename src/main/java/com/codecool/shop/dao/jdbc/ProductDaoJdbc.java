@@ -15,9 +15,11 @@ import java.util.List;
 
 public class ProductDaoJdbc implements ProductDao {
     private DataSource dataSource;
-    public ProductDaoJdbc(DataSource dataSource){
+
+    public ProductDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
     @Override
     public void add(Product product) {
 
@@ -34,8 +36,8 @@ public class ProductDaoJdbc implements ProductDao {
                 return null;
             }
             ProductCategory productCategory = new ProductCategoryDaoJdbc(dataSource).find(rs.getInt(5));
-            Supplier supplier =new SupplierDaoJdbc(dataSource).find(rs.getInt(6));
-            Product product = new Product(rs.getString(1),rs.getBigDecimal(2), rs.getString(3),rs.getString(4),productCategory,supplier,rs.getString(7) );
+            Supplier supplier = new SupplierDaoJdbc(dataSource).find(rs.getInt(6));
+            Product product = new Product(rs.getString(1), rs.getBigDecimal(2), rs.getString(3), rs.getString(4), productCategory, supplier, rs.getString(7));
             product.setId(id);
             return product;
         } catch (SQLException e) {
@@ -56,8 +58,8 @@ public class ProductDaoJdbc implements ProductDao {
             List<Product> result = new ArrayList<>();
             while (rs.next()) {
                 ProductCategory productCategory = new ProductCategoryDaoJdbc(dataSource).find(rs.getInt(6));
-                Supplier supplier =new SupplierDaoJdbc(dataSource).find(rs.getInt(7));
-                Product product = new Product(rs.getString(2),rs.getBigDecimal(3), rs.getString(4),rs.getString(5),productCategory,supplier,rs.getString(8) );
+                Supplier supplier = new SupplierDaoJdbc(dataSource).find(rs.getInt(7));
+                Product product = new Product(rs.getString(2), rs.getBigDecimal(3), rs.getString(4), rs.getString(5), productCategory, supplier, rs.getString(8));
                 product.setId(rs.getInt(1));
                 result.add(product);
             }

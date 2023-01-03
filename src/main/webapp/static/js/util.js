@@ -1,4 +1,4 @@
-function formOnEnter(ev,form){
+function formOnEnter(ev, form) {
     form.addEventListener("keydown", function (ev) {
         if (ev.keyCode === 13) {
             ev.preventDefault()

@@ -2,12 +2,10 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.service.ProductService;
-import org.apache.log4j.chainsaw.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +20,7 @@ import java.util.Enumeration;
 @WebServlet(urlPatterns = {"/"})
 public class Index extends HttpServlet {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Index.class);
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = null;
@@ -40,8 +38,8 @@ public class Index extends HttpServlet {
         Enumeration<String> attributes = session.getAttributeNames();
         while (attributes.hasMoreElements()) {
             String attribute = (String) attributes.nextElement();
-            System.out.println("Attribute name: "+attribute+"\n" +
-                    "Attribute values:\t "+session.getAttribute(attribute));
+            System.out.println("Attribute name: " + attribute + "\n" +
+                    "Attribute values:\t " + session.getAttribute(attribute));
         }
 
         System.out.println("Saved orders:");
@@ -53,7 +51,7 @@ public class Index extends HttpServlet {
 
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
-        context.setVariable("user",session.getAttribute("user"));
+        context.setVariable("user", session.getAttribute("user"));
         engine.process("product/index.html", context, resp.getWriter());
     }
 }

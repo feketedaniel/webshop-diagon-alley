@@ -3,7 +3,7 @@
 <head th:replace="header.html :: head"></head>
 <head>
     <script defer src="/static/js/util.js"></script>
-    <script src="/static/js/payment.js" defer></script>
+    <script defer src="/static/js/payment.js"></script>
 </head>
 <body>
 <div th:replace="header.html :: logo-container"></div>
@@ -20,16 +20,17 @@
                 <i class="fa-brands fa-cc-paypal fa-5x paypal"></i>
             </span>
         </div>
-        <form class="payment-form-card hidden" method="post" action="/payment" autocomplete="off" onsubmit="return expiryValidation()">
+        <form action="/payment" autocomplete="off" class="payment-form-card hidden" method="post"
+              onsubmit="return expiryValidation()">
             <label for="card-number">Card number: </label>
-            <input id="card-number" name="card-number" type="number" min="1000000000000000" max="9999999999999999"
-                   required><br>
+            <input id="card-number" max="9999999999999999" min="1000000000000000" name="card-number" required
+                   type="number"><br>
             <label for="card-owner">Card owner: </label>
-            <input id="card-owner" name="card-owner" type="text" required><br>
+            <input id="card-owner" name="card-owner" required type="text"><br>
             <label for="card-expiry">Expiry date: </label>
-            <input id="card-expiry" name="card-expiry" type="month" required><br>
+            <input id="card-expiry" name="card-expiry" required type="month"><br>
             <label for="card-ccv">CCV: </label>
-            <input id="card-ccv" name="card-ccv" type="number" min="100" max="999" required><br>
+            <input id="card-ccv" max="999" min="100" name="card-ccv" required type="number"><br>
             <div class="center-input">
                 <input type="submit" value="Pay">
             </div>

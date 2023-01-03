@@ -12,7 +12,8 @@ public class SessionUser {
         this.name = name;
         this.email = email;
     }
-    public SessionUser(User user){
+
+    public SessionUser(User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();
@@ -32,9 +33,9 @@ public class SessionUser {
 
     @Override
     public String toString() {
-        return "\n\tUsername: "+name+
-                "\n\tEmail: "+email+
-                "\n\tId: "+id;
+        return "\n\tUsername: " + name +
+                "\n\tEmail: " + email +
+                "\n\tId: " + id;
     }
 }
 

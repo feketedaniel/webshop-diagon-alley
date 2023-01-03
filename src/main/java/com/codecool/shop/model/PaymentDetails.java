@@ -3,7 +3,7 @@ package com.codecool.shop.model;
 import java.util.Date;
 
 public class PaymentDetails {
-    private static int nextId=0;
+    private static int nextId = 0;
     private int id;
     private int orderId;
     private Integer userId;
@@ -23,7 +23,7 @@ public class PaymentDetails {
     private Date payDate;
 
 
-    public PaymentDetails(){
+    public PaymentDetails() {
         this.id = nextId++;
     }
 
@@ -149,16 +149,16 @@ public class PaymentDetails {
 
     @Override
     public String toString() {
-        return "\n\t\tPayment id: "+id+
-                "\n\t\tOrder id: "+orderId+
-                "\n\t\tUser id: "+userId+
-                "\n\t\tShipping details: "+
-                "\n\t\t\tCountry/City: "+shippingCountry+", "+shippingCity+
-                "\n\t\t\tAdress/Zip: "+shippingStreetHouseNum+", "+shippingZip+
-                "\n\t\tBilling details: "+
-                "\n\t\t\tCountry/City: "+billingCountry+", "+billingCity+
-                "\n\t\t\tAdress/Zip: "+billingStreetHouseNum+", "+billingZip+
-                "\n\t\tBuyer info:"+
-                "\n\t\t\t"+name+", "+email+", "+phone;
+        return "\n\t\tPayment id: " + id +
+                "\n\t\tOrder id: " + orderId +
+                "\n\t\tUser id: " + userId +
+                "\n\t\tShipping details: " +
+                "\n\t\t\tCountry/City: " + shippingCountry + ", " + shippingCity +
+                "\n\t\t\tAdress/Zip: " + shippingStreetHouseNum + ", " + shippingZip +
+                "\n\t\tBilling details: " +
+                "\n\t\t\tCountry/City: " + billingCountry + ", " + billingCity +
+                "\n\t\t\tAdress/Zip: " + billingStreetHouseNum + ", " + billingZip +
+                "\n\t\tBuyer info:" +
+                "\n\t\t\t" + name + ", " + email + ", " + phone;
     }
 }

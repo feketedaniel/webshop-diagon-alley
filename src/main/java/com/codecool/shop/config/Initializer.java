@@ -12,7 +12,6 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.model.User;
-import org.apache.log4j.chainsaw.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +29,7 @@ import java.security.spec.KeySpec;
 @WebListener
 public class Initializer implements ServletContextListener {
 
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Initializer.class);
 
 
     @Override
@@ -100,7 +99,7 @@ public class Initializer implements ServletContextListener {
             throw new RuntimeException(e);
         }
 
-        userDao.add(new User("Dani","dani@gmail.com",hash,salt));
+        userDao.add(new User("Dani", "dani@gmail.com", hash, salt));
 
         logger.info("Server content initialization finished.");
     }

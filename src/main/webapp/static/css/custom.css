@@ -94,13 +94,14 @@ input::-webkit-inner-spin-button {
     height: 100%;
     box-shadow: 50px 80px 50px black inset, -50px -80px 50px black inset !important;
 }
+
 .nav-menu a,
 li a {
     all: unset !important;
 }
 
-.connect a{
-    padding:0em 1em!important;
+.connect a {
+    padding: 0em 1em !important;
 }
 
 .header-container {
@@ -460,7 +461,7 @@ li a:active,
 .login-wrap input:active,
 .registration-wrap input,
 .registration-wrap input:target,
-.registration-wrap input:active{
+.registration-wrap input:active {
     all: unset;
     border-bottom: black solid 1px;
 }
@@ -567,12 +568,14 @@ li a:active,
 #card-number {
     width: 10em;
 }
-.paypal-qr-wrap{
+
+.paypal-qr-wrap {
     width: max-content;
     margin: 2em auto;
     text-align: center;
 }
-.paypal-link-wrap{
+
+.paypal-link-wrap {
     margin: 0.5em auto;
     text-align: center;
 }
@@ -581,25 +584,27 @@ li a:active,
     margin: 1em;
     display: block;
 }
-#paypal-link{
+
+#paypal-link {
     display: block;
 }
 
 .payment-form-card,
-.payment-form-paypal{
+.payment-form-paypal {
     margin: 3em 0;
 }
 
-.payment-detail-header span{
+.payment-detail-header span {
     display: inline-block;
     margin: 0.5em 0;
 }
-#e-mail-suggestion{
+
+#e-mail-suggestion {
     text-decoration: underline 1px solid;
     color: blue;
 }
 
-.confirmation-detail-wrap{
+.confirmation-detail-wrap {
     color: black;
     position: relative;
     margin: 30px auto 30px auto;
@@ -607,28 +612,31 @@ li a:active,
     background-color: wheat;
     box-shadow: black 10px 10px 10px, black -10px -10px 10px;
 }
-.confirmation-detail{
+
+.confirmation-detail {
     position: relative;
     margin: 3em auto 3em auto;
     text-align: center;
 }
+
 #confirmation-total,
-.confirmation-subtotal{
+.confirmation-subtotal {
     text-align: end;
 }
 
 .login-wrap,
-.registration-wrap{
+.registration-wrap {
     margin: 8em auto;
     text-align: center;
 }
+
 .registration-wrap form,
-.login-wrap form{
+.login-wrap form {
     position: relative;
     top: 30%;
 }
 
-th{
+th {
     padding: 0.5em 2em;
 }
 
@@ -636,6 +644,6 @@ th{
 #reg-email,
 #reg-password,
 #login-email,
-#login-password{
+#login-password {
     margin-bottom: 2em;
 }

@@ -74,7 +74,7 @@ function refreshCartItems(orderItemList) {
 
 function rebuildToDefault(productId) {
     const buttonContainer = document.querySelector('.cart-button-container[data-prod-id="' + productId + '"]')
-    if(buttonContainer) {
+    if (buttonContainer) {
         rebuildAddButton(buttonContainer)
     }
     const oldItemCount = document.querySelector(".fa-solid.fa-cart-shopping").getAttribute("value")

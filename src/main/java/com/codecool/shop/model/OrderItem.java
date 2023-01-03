@@ -29,19 +29,22 @@ public class OrderItem {
         this.id = id;
     }
 
-    public int getProductId(){
+    public int getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId){
+    public void setProductId(int productId) {
         this.productId = productId;
     }
-    public int getOrderId(){
+
+    public int getOrderId() {
         return orderId;
     }
-    public void setOrderId(int orderId){
+
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
+
     public String getName() {
         return name;
     }
@@ -64,11 +67,11 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return "\n\t\tOrderItem id: "+id+
-                "\n\t\tProduct id: "+productId+
-                "\n\t\tOrder id: "+orderId+
-                "\n\t\tProduct name: "+name+
-                "\n\t\tAmount: "+amount+
-                "\n\t\tDefault price: "+ defaultPrice+" GAL\n";
+        return "\n\t\tOrderItem id: " + id +
+                "\n\t\tProduct id: " + productId +
+                "\n\t\tOrder id: " + orderId +
+                "\n\t\tProduct name: " + name +
+                "\n\t\tAmount: " + amount +
+                "\n\t\tDefault price: " + defaultPrice + " GAL\n";
     }
 }

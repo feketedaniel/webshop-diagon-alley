@@ -10,9 +10,11 @@ import java.util.UUID;
 
 public class OrderDaoJdbc implements OrderDao {
     private DataSource dataSource;
-    public OrderDaoJdbc(DataSource dataSource){
+
+    public OrderDaoJdbc(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
     @Override
     public void add(Order order) {
         try (Connection conn = dataSource.getConnection()) {

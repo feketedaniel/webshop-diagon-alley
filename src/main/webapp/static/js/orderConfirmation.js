@@ -8,5 +8,5 @@ function setTotal() {
         total += +parseFloat(subTotal.innerText)
     })
     const cell = document.querySelector("#confirmation-total")
-    cell.innerText ="Your Total is: " +total.toFixed(2) + " GAL"
+    cell.innerText = "Your Total is: " + total.toFixed(2) + " GAL"
 }

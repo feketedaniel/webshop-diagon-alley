@@ -7,6 +7,7 @@ import java.util.Set;
 
 public interface UserDao {
     boolean isRegistered(String email);
+
     void add(User user);
 
     Optional<User> findByEmail(String email);

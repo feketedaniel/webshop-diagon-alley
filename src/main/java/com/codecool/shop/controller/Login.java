@@ -4,7 +4,6 @@ import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.model.SessionUser;
 import com.codecool.shop.model.User;
 import com.codecool.shop.service.ProductService;
-import org.apache.log4j.chainsaw.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thymeleaf.TemplateEngine;
@@ -28,7 +27,7 @@ import java.util.Optional;
 
 @WebServlet(urlPatterns = {"/login"})
 public class Login extends HttpServlet {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Login.class);
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = null;
@@ -65,9 +64,9 @@ public class Login extends HttpServlet {
         Optional<User> optionalUser = productService.findByEmail(email);
         User registeredUser;
         if (optionalUser.isPresent()) {
-            registeredUser=optionalUser.get();
+            registeredUser = optionalUser.get();
         } else {
-            logger.info("Failed login attempt: not existing user {}",email);
+            logger.info("Failed login attempt: not existing user {}", email);
             resp.sendRedirect("/login");
             return;
         }

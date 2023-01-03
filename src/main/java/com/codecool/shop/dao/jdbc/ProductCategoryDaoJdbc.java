@@ -33,7 +33,8 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             if (!rs.next()) {
                 return null;
             }
-            ProductCategory productCategory = new ProductCategory(rs.getString(1),rs.getString(2),rs.getString(3));;
+            ProductCategory productCategory = new ProductCategory(rs.getString(1), rs.getString(2), rs.getString(3));
+            ;
             productCategory.setId(id);
             return productCategory;
         } catch (SQLException e) {
@@ -53,7 +54,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             ResultSet rs = conn.createStatement().executeQuery(sql);
             List<ProductCategory> result = new ArrayList<>();
             while (rs.next()) {
-                ProductCategory productCategory = new ProductCategory(rs.getString(2),rs.getString(3),rs.getString(4));
+                ProductCategory productCategory = new ProductCategory(rs.getString(2), rs.getString(3), rs.getString(4));
                 productCategory.setId(rs.getInt(1));
                 result.add(productCategory);
             }

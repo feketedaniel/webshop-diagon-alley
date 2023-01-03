@@ -29,14 +29,14 @@ public class OrderConfirmation extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        context.setVariable("user",session.getAttribute("user"));
+        context.setVariable("user", session.getAttribute("user"));
 
         context.setVariable("categories", productService.getAllProductCategory());
         context.setVariable("suppliers", productService.getAllSupplier());
-        Order order =(Order) session.getAttribute("order");
+        Order order = (Order) session.getAttribute("order");
         productService.setOrderPayed(order.getId());
-        context.setVariable("orderItems",order.getOrderItems());
-        session.setAttribute("order",null);
+        context.setVariable("orderItems", order.getOrderItems());
+        session.setAttribute("order", null);
 
 
         engine.process("product/order-confirmation.html", context, resp.getWriter());

@@ -95,6 +95,7 @@ public class Order {
     public void setPaymentDetailsOrderId(int orderId) {
         paymentDetails.setOrderId(orderId);
     }
+
     public void setOrderItemsOrderId(int orderId) {
         orderItems.forEach(orderItem -> orderItem.setOrderId(orderId));
     }

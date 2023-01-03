@@ -7,7 +7,6 @@ import com.codecool.shop.dao.jdbc.ProductDaoJdbc;
 import com.codecool.shop.dao.jdbc.SupplierDaoJdbc;
 import com.codecool.shop.dao.mem.*;
 import com.codecool.shop.model.*;
-import org.apache.log4j.chainsaw.Main;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class ProductService {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
     private static ProductService instance = null;
     private static Properties connProps;
     private ProductDao productDao;
@@ -96,15 +95,15 @@ public class ProductService {
         return productDao.getBy(supplier);
     }
 
-    public boolean isRegistered(String email){
+    public boolean isRegistered(String email) {
         return userDao.isRegistered(email);
     }
 
-    public void addNewUser(User user){
+    public void addNewUser(User user) {
         userDao.add(user);
     }
 
-    public Optional<User> findByEmail(String email){
+    public Optional<User> findByEmail(String email) {
         return userDao.findByEmail(email);
     }
 
@@ -136,7 +135,7 @@ public class ProductService {
         orderDao.find(orderId).setPayed(true);
     }
 
-    public Set<User> getAllUser(){
+    public Set<User> getAllUser() {
         return userDao.getAllUser();
     }
 }
