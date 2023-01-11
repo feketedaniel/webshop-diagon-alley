@@ -2,7 +2,7 @@
 
 A Harry Potter themed webshop, built with Maven and Eclipse Jetty webserver/servlet container.
 
-## How to start
+## How to start (DAO mode)
 
 1. Check whether Maven is installed:
     ```shell
